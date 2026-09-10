@@ -1,0 +1,44 @@
+# R / RStudio
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj.user
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Large environmental rasters / archives
+*.tif
+*.tiff
+*.grd
+*.gri
+*.nc
+*.asc
+*.zip
+*.7z
+
+# Reproducible binary objects / application sessions
+*.rds
+*.RDS
+*.rda
+*.RData
+
+# Local geodata caches
+/data/gadm/
+/data/worldclim/
+/data/rasters/
+
+# Wallace session files can be large and machine-specific
+/wallace/**/Wallace_*_session.rds
+
+# Optional local outputs
+/output/
