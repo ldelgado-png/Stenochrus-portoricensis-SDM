@@ -143,6 +143,6 @@ Do **not** commit the global WorldClim TIFFs to ordinary Git history. Keep them 
 
 Exact package versions should be recorded before archival release (e.g. with `sessionInfo()` or `renv`).
 
-## License
+## AI declaration
 
-A repository license has not yet been selected. Choose a code license (for example MIT or GPL-3) and, if appropriate, a separate license for documentation/data before making a public release.
+This project used ChatGPT (OpenAI) to assist with workflow development, code implementation, troubleshooting, data analysis, and visualization. All methodological decisions, data interpretation, and scientific conclusions remain the responsibility of the authors.
