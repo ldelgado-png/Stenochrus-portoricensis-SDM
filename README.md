@@ -131,15 +131,24 @@ The scripts assume that the raw GBIF export and WorldClim rasters are available 
 
 ### Climatic suitability in Colombia
 
-Predicted climatic suitability in Colombia based on the selected Maxent model (feature class = LQHP, regularization multiplier = 1).
+![Predicted climatic suitability of Stenochrus portoricensis in Colombia](figures/colombia/Stenochrus_Colombia_LQHP_RM1_FINAL_400dpi_fixed.png?raw=true)
+
+Predicted climatic suitability in Colombia based on the selected Maxnet model
+(feature class = LQHP, regularization multiplier = 1).
 
 ### Environmental dissimilarity (MOP) in Colombia
 
-Areas with higher dissimilarity indicate stronger extrapolation risk relative to the environmental conditions represented in the accessible area (M200).
+![Environmental dissimilarity in Colombia](figures/mop/mop_dissimilarity_colombia.png?raw=true)
+
+Areas with higher dissimilarity indicate stronger environmental differences
+relative to the conditions represented in the M200 calibration area.
 
 ### Response curves
 
-Univariate response curves for the six climatic variables used in model calibration.
+![Response curves of the selected model](figures/response_curves/response_curves_lqhp_rm1.png?raw=true)
+
+Conditional response curves for the six bioclimatic predictors included in the
+selected LQHP / RM = 1 model.
 
 ## Software used during development
 
