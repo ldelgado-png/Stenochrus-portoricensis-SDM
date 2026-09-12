@@ -131,25 +131,15 @@ The scripts assume that the raw GBIF export and WorldClim rasters are available 
 
 ### Climatic suitability in Colombia
 
-![Climatic suitability map for *Stenochrus portoricensis* in Colombia](figures/suitability_map_colombia.png)
-
 Predicted climatic suitability in Colombia based on the selected Maxent model (feature class = LQHP, regularization multiplier = 1).
 
 ### Environmental dissimilarity (MOP) in Colombia
-
-![Environmental dissimilarity (MOP) relative to the M200 calibration area](figures/mop_dissimilarity_colombia.png)
 
 Areas with higher dissimilarity indicate stronger extrapolation risk relative to the environmental conditions represented in the accessible area (M200).
 
 ### Response curves
 
-![Response curves for the selected Maxent model (LQHP, RM = 1)](figures/response_curves_lqhp_rm1.png)
-
 Univariate response curves for the six climatic variables used in model calibration.
-
-## Data policy
-
-Do **not** commit the global WorldClim TIFFs to ordinary Git history. Keep them locally and document their source/version. The repository should preferentially version scripts, small processed CSV tables, model-selection tables, metadata, and final figures.
 
 ## Software used during development
 
@@ -161,7 +151,6 @@ Do **not** commit the global WorldClim TIFFs to ordinary Git history. Keep them 
 - sf 1.1-2
 - Wallace 2.2.1
 
-Exact package versions should be recorded before archival release (e.g. with `sessionInfo()` or `renv`).
 
 ## AI declaration
 
