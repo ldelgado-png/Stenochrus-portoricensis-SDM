@@ -180,7 +180,9 @@ selected LQHP / RM = 1 model.
 
 ### Future suitability and non-analog climate consensus
 
-The reproducible mapping code is available in `R/11_future_consensus_maps.R`. Panels A–D summarize agreement among four GCMs in strict non-analog climatic conditions (NAC), and panels E–H summarize agreement among GCMs in future climatic suitability using the fixed 10TP threshold. The publication-quality binary figure is generated locally from the raster outputs and is not stored in the repository by this connector.
+![Future climatic suitability and NAC consensus](figures/colombia/Figure_future_NAC_suitability_consensus.png?raw=true)
+
+Panels A–D summarize agreement among four GCMs in strict non-analog climatic conditions (NAC). Panels E–H summarize agreement among GCMs in future climatic suitability using the fixed 10TP threshold. The reproducible mapping code is available in `R/11_future_consensus_maps.R`.
 
 ## Software used during development
 
