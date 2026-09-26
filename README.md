@@ -15,6 +15,9 @@ The repository captures the modelling workflow developed to date:
 - Response curves and permutation-based variable importance.
 - Continuous climatic suitability projection to Colombia.
 - Univariate extrapolation checks and multivariate MOP analysis.
+- CMIP6 future projections for four GCMs, two SSPs, and two future periods.
+- Inter-GCM climatic-suitability consensus and stable/gained/lost suitable-area summaries.
+- Future MOP / strict non-analog climate (NAC) analyses and NAC consensus.
 
 ## Key numbers
 
@@ -86,7 +89,32 @@ Permutation importance of the selected direct ENMeval model:
 
 The continuous cloglog prediction for Colombia ranged from **0.0004206 to 0.925758**, with a mean of **0.1771955**.
 
-Strict univariate extrapolation relative to the full M200 environmental range affected approximately **0.74%** of valid Colombian cells, mainly because of BIO1. A MOP analysis based on the 9,987 sampled M200 background environments returned a median distance of 0.1967, P95 = 0.4344, and P99 = 0.5585. Because the sampled reference has slightly narrower extrema than the full M200 raster, its strict non-analogous-condition percentage is expected to be larger than the full-M200 univariate estimate.
+Strict univariate extrapolation relative to the full M200 environmental range affected approximately **0.74%** of valid Colombian cells, mainly because of BIO1. Under the standardized present/future MOP workflow, **684 of 54,539 cells (1.254%)** in Colombia were classified as strict non-analog conditions relative to the 9,987 sampled background environments.
+
+
+## Future climate projections
+
+Future climatic suitability was evaluated with the selected LQHP / RM = 1 model using WorldClim CMIP6 bioclimatic layers at 2.5 arc-min resolution. Four GCMs were used: **HadGEM3-GC31-LL, MIROC6, CNRM-CM6-1, and MRI-ESM2-0**, under **SSP1-2.6** and **SSP5-8.5** for **2041–2060** and **2061–2080**. This yielded 16 GCM–SSP–period projections.
+
+A fixed 10th-percentile training-presence threshold (**10TP = 0.2123639**) was applied to the present and all future predictions. Present climatically suitable area was **379,223.5 km²**.
+
+Using the primary consensus criterion of suitability supported by at least two of four GCMs (≥2/4), future suitable area was:
+
+| SSP | Period | Future suitable area (km²) | Change from present | Persistence (km²) | Loss (km²) | Gain (km²) |
+|---|---|---:|---:|---:|---:|---:|
+| SSP1-2.6 | 2041–2060 | 144,294.6 | -61.95% | 119,735.4 | 259,488.1 | 24,559.2 |
+| SSP5-8.5 | 2041–2060 | 138,796.7 | -63.40% | 93,387.8 | 285,835.7 | 45,408.9 |
+| SSP1-2.6 | 2061–2080 | 143,206.2 | -62.24% | 113,141.4 | 266,082.2 | 30,064.8 |
+| SSP5-8.5 | 2061–2080 | 143,995.9 | -62.03% | 77,549.1 | 301,674.4 | 66,446.8 |
+
+All 16 individual GCM projections showed net contraction relative to the current suitable area.
+
+### Future environmental novelty
+
+Strict non-analog conditions increased substantially under stronger forcing and later periods. Under the ≥2/4 GCM NAC-consensus criterion, non-analog climates covered **28.26%**, **54.57%**, **32.09%**, and **76.50%** of Colombia for SSP1-2.6 2041–2060, SSP5-8.5 2041–2060, SSP1-2.6 2061–2080, and SSP5-8.5 2061–2080, respectively.
+
+Unanimous 4/4 NAC agreement covered **9.22%**, **24.45%**, **10.75%**, and **45.99%** of the country across the same scenarios. Despite this increase in environmental novelty, overlap between multi-GCM suitable predictions and multi-GCM NAC was very limited: no ≥2-GCM overlap occurred in the first three scenarios, and only **1,324.2 km²** did so under SSP5-8.5 in 2061–2080, approximately **0.92%** of the ≥2/4 future suitable consensus area.
+
 
 ## Repository structure
 
@@ -149,6 +177,12 @@ relative to the conditions represented in the M200 calibration area.
 
 Conditional response curves for the six bioclimatic predictors included in the
 selected LQHP / RM = 1 model.
+
+### Future suitability and non-analog climate consensus
+
+![Future climatic suitability and NAC consensus](figures/future/Figure_future_NAC_suitability_consensus.png?raw=true)
+
+Panels A–D summarize agreement among four GCMs in strict non-analog climatic conditions (NAC). Panels E–H summarize agreement among GCMs in future climatic suitability using the fixed 10TP threshold.
 
 ## Software used during development
 
