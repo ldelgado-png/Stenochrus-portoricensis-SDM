@@ -9,7 +9,7 @@ cat("Project root: ", repo, "\n", sep="")
 cat("Directory exists: ", dir.exists(repo), "\n", sep="")
 if (!dir.exists(repo)) stop("Project folder not found; adjust 'repo'.")
 
-required_pkgs <- c("terra", "ENMeval", "maxnet", "ecokit")
+required_pkgs <- c("terra", "ENMeval", "maxnet", "ecokit", "osfr", "tidyr")
 installed <- vapply(required_pkgs, requireNamespace, quietly=TRUE,
                     FUN.VALUE=logical(1))
 cat("\n1. REQUIRED R PACKAGES\n")
@@ -17,7 +17,7 @@ print(data.frame(package=required_pkgs, installed=installed),
       row.names=FALSE)
 if (!installed[["ecokit"]]) cat(
   "\nInstall ecokit using: install.packages('remotes'); ",
-  "remotes::install_github('elgabbas/ecokit', dependencies=TRUE)\n",
+  "remotes::install_github('elgabbas/ecokit', dependencies=NA, upgrade='never')\n",
   sep=""
 )
 
