@@ -6,10 +6,10 @@
 
 repo <- "D:/Usuario/Documents/EcdysisSDM/Stenochrus_portoricensis"
 stopifnot(dir.exists(repo))
-for (p in c("ENMeval", "terra", "ecokit")) {
+for (p in c("ENMeval", "terra", "ecokit", "osfr", "tidyr")) {
   if (!requireNamespace(p, quietly = TRUE)) {
-    stop("Missing package ", p, ". For ecokit: install remotes, then ",
-         "remotes::install_github('elgabbas/ecokit')")
+    stop("Missing package ", p, ". Install osfr and tidyr with install.packages(c('osfr','tidyr')); ",
+         "install ecokit with remotes::install_github('elgabbas/ecokit', dependencies=NA, upgrade='never').")
   }
 }
 out <- file.path(repo, "results", "sampling_bias")
