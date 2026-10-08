@@ -128,7 +128,9 @@ cat("To run the 40 candidate configurations for each new background,\n",
     "set RUN_MODELS <- TRUE below. It is FALSE initially for safety.\n")
 
 RUN_MODELS <- FALSE
-if (!RUN_MODELS) stop("Preparation complete: set RUN_MODELS <- TRUE to fit.")
+if (!RUN_MODELS) {
+  message("Preparation complete; no models were fitted. Set RUN_MODELS <- TRUE to fit.")
+} else {
 
 # Use identical occurrence coordinates, predictors, number of background
 # cells, tuning grid, block partitions, and validation.bg setting. Background
@@ -228,3 +230,5 @@ if(length(colfile)==1L) {
 }
 
 cat("\nBias sensitivity model-comparison workflow complete.\n")
+
+} # end if (RUN_MODELS)
