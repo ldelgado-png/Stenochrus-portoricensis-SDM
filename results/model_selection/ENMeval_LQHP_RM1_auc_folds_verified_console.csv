@@ -1,0 +1,9 @@
+# ENMeval 2.0.5.x, LQHP RM 1, four spatial folds; values transcribed from author's R console print (digits=10) on 2026-10-08.
+# Original source object: data/ENMeval_Stenochrus_M200_SWD.rds (held in local project, not deposited here).
+# Check passed in R: mean(auc.val) == auc.val.avg; mean(auc.diff) == auc.diff.avg (all.equal).
+# abs.auc.diff=TRUE; validation.bg=partition. Printed precision is not original full floating-point precision.
+tune.args,fold,auc.val,auc.diff
+fc.LQHP_rm.1,1,0.6734553461,0.20280467703
+fc.LQHP_rm.1,2,0.7476871806,0.11321366246
+fc.LQHP_rm.1,3,0.8132938936,0.03556824039
+fc.LQHP_rm.1,4,0.7315848214,0.09258864166
