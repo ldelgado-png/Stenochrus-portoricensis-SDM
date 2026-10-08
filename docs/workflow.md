@@ -28,7 +28,10 @@
 - [ ] Produce final high-resolution PNG/PDF maps
 - [ ] Map strict NAC and high-MOP (e.g. descriptive P95) separately
 - [ ] Consider M sensitivity analyses (M100 / M300; optionally M5 exploratory)
-- [ ] Assess occurrence sampling bias / target-group or thinning sensitivity
+- [x] Define a literature-grounded effort-bias sensitivity protocol from El-Gabbas (2026), 5 km/2.5 arc-min, Schizomida/Arachnida, 1980–2025, with documented non-zero probability for zero-count cells and scripts R/16–17
+- [ ] Download source rasters and assess observed effort coverage for M200 and the 171 focal occurrences (scripts R/16)
+- [ ] Run full candidate retuning under weighted backgrounds, evaluate seeds, and compare Colombian current/future predictions (R/17; requires original local rasters)
+- [ ] Determine whether independent non-focal Schizomida occurrences support a fair target-group-background comparison
 - [ ] Consider thresholded outputs only after choosing and justifying a threshold
 - [ ] Archive exact package versions (`sessionInfo()` and/or `renv`)
 - [ ] Add a formal repository license
