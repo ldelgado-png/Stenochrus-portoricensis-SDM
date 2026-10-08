@@ -1,4 +1,5 @@
 # 16_sampling_effort_prepare.R ---------------------------------------------
+# Compatibility fix: terra::extract(SpatRaster, matrix) does not accept ID=FALSE.
 # El-Gabbas (2026): bias surfaces for Stenochrus portoricensis.
 # NOT YET EXECUTED in the local RStudio project. Run script from any working dir.
 # DOI: 10.1111/ddi.70205; datasets: https://osf.io/hz4sy
@@ -76,7 +77,7 @@ get_one <- function(group, descendant, label, metric = "n_obs") {
   terra::writeRaster(aligned, target, overwrite = TRUE)
   v <- terra::values(aligned, mat = FALSE)
   valid <- !is.na(v)
-  occ_v <- terra::extract(aligned, as.matrix(occ[, 1:2]), ID = FALSE)[, 1]
+  occ_v <- terra::extract(aligned, as.matrix(occ[, 1:2]))[, 1]
   data.frame(
     layer = label, archive_file = downloaded$name[[1]],
     local_file = target, n_valid = sum(valid),
