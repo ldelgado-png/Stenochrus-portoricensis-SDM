@@ -1,0 +1,16 @@
+layer,floor_fraction,seed,selected_positive,selected_zero,selected_positive_pct,eligible_positive
+Schizomida_nobs,0.01,123,93,9894,0.93121,93
+Schizomida_nobs,0.01,124,93,9894,0.93121,93
+Schizomida_nobs,0.01,125,93,9894,0.93121,93
+Schizomida_nobs,0.01,126,93,9894,0.93121,93
+Schizomida_nobs,0.01,127,93,9894,0.93121,93
+Schizomida_nobs,0.05,123,80,9907,0.80104,93
+Schizomida_nobs,0.05,124,83,9904,0.83108,93
+Schizomida_nobs,0.05,125,75,9912,0.75098,93
+Schizomida_nobs,0.05,126,77,9910,0.771,93
+Schizomida_nobs,0.05,127,82,9905,0.82107,93
+Arachnida_nobs,0.01,123,9410,577,94.22249,21552
+Arachnida_nobs,0.01,124,9389,598,94.01222,21552
+Arachnida_nobs,0.01,125,9389,598,94.01222,21552
+Arachnida_nobs,0.01,126,9347,640,93.59167,21552
+Arachnida_nobs,0.01,127,9375,612,93.87203,21552
