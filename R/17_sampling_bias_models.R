@@ -95,7 +95,12 @@ if(file.exists(tgbfile)) {
   if(!all(c("decimalLongitude","decimalLatitude","scientificName") %in% names(tg))) {
     stop("TGB file needs decimalLongitude, decimalLatitude, scientificName")
   }
-  tg <- tg[tolower(trimws(tg$scientificName)) != "stenochrus portoricensis",]
+  # Scientific names can include authorship (e.g. Chamberlin, 1922).
+  # Exclude focal-species records even when GBIF appends nomenclatural authors.
+  names_norm <- tolower(trimws(as.character(tg$scientificName)))
+  nonfocal <- !is.na(names_norm) & nzchar(names_norm) &
+    !grepl("^stenochrus[[:space:]]+portoricensis([[:space:]]|$)", names_norm)
+  tg <- tg[nonfocal, , drop=FALSE]
   tg_cells <- unique(terra::cellFromXY(
     env[[1]], as.matrix(tg[, c("decimalLongitude","decimalLatitude")])
   ))
