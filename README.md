@@ -57,7 +57,7 @@ Both the direct ENMeval analysis and the independent Wallace workflow selected t
 - Akaike weight: 0.9595153
 - Non-zero coefficients: 31
 
-**Four-fold AUC audit (verified 2026-10-08).** The original ENMeval object was recovered locally. Fold validation AUCs were 0.673455, 0.747687, 0.813294, and 0.731585; corresponding fold-specific absolute training–validation AUC differences were 0.202805, 0.113214, 0.035568, and 0.092589. R's `all.equal()` checks confirmed the reported `auc.val.avg = 0.7415053` and `auc.diff.avg = 0.1110438`; `abs.auc.diff = TRUE` and `validation.bg = "partition"`. These figures are not obtained by subtracting the model-wide training AUC from the average validation AUC. The per-fold CSV is in [results/model_selection/](results/model_selection/ENMeval_LQHP_RM1_auc_folds_verified_console.csv), with [provenance and reproducibility notes](docs/auc_fold_audit.md) and an [audit script](R/14_auc_fold_audit.R). **The Wallace fold-by-fold aggregation is not yet verified**; its summary statistics remain unchanged.
+**Four-fold AUC audit (verified 2026-10-08).** The original ENMeval object was recovered locally. Fold validation AUCs were 0.673455, 0.747687, 0.813294, and 0.731585; corresponding fold-specific absolute training–validation AUC differences were 0.202805, 0.113214, 0.035568, and 0.092589. R's `all.equal()` checks confirmed the reported `auc.val.avg = 0.7415053` and `auc.diff.avg = 0.1110438`; `abs.auc.diff = TRUE` and `validation.bg = "partition"`. These figures are not obtained by subtracting the model-wide training AUC from the average validation AUC. The per-fold CSV is in [results/model_selection/](results/model_selection/ENMeval_LQHP_RM1_auc_folds_verified_console.csv), with [provenance and reproducibility notes](docs/auc_fold_audit.md) and an [audit script](R/14_auc_fold_audit.R). **The Wallace fold-by-fold aggregation has now also been verified** against the original RunB group-export CSV; the published summary statistics remain unchanged.
 
 ### Wallace replication
 
@@ -72,6 +72,8 @@ After combining the two Wallace runs and recalculating ΔAICc and Akaike weights
 - ΔAICc: 0
 - Akaike weight: 0.9934626
 - Non-zero coefficients: 32
+
+**Four-fold AUC audit (verified 2026-10-08).** Original Wallace RunB validation AUCs: 0.696025, 0.842932, 0.765290 and 0.874017. Corresponding fold-specific AUC differences: 0.184942, 0.072651, 0.102770 and 0.051723. Their means reproduce `auc.val.avg = 0.794566` and `auc.diff.avg = 0.1030216`; the author's R `all.equal()` checks passed. See the [Wallace four-fold CSV](results/model_selection/Wallace_LQHP_RM1_auc_folds_verified_console.csv), [validation script](R/15_wallace_auc_fold_audit.R), and the [complete ENMeval–Wallace AUC audit record](docs/auc_fold_audit.md). These results verify the reported fold-level averages without demonstrating equivalence of background realization or AICc between workflows.
 
 Absolute AICc values should not be compared between the direct ENMeval and Wallace runs because the background realization and evaluation details differ. The relevant result is the concordant selection of **LQHP / RM = 1** within each candidate set.
 
