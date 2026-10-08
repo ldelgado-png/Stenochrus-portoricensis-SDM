@@ -18,6 +18,7 @@ The repository captures the modelling workflow developed to date:
 - CMIP6 future projections for four GCMs, two SSPs, and two future periods.
 - Inter-GCM climatic-suitability consensus and stable/gained/lost suitable-area summaries.
 - Future MOP / strict non-analog climate (NAC) analyses and NAC consensus.
+- Area-weighted post hoc elevational analysis of occurrences, suitable area, and loss/persistence/gain under future consensus scenarios.
 
 ## Key numbers
 
@@ -116,6 +117,24 @@ Strict non-analog conditions increased substantially under stronger forcing and 
 Unanimous 4/4 NAC agreement covered **9.22%**, **24.45%**, **10.75%**, and **45.99%** of the country across the same scenarios. Despite this increase in environmental novelty, overlap between multi-GCM suitable predictions and multi-GCM NAC was very limited: no ≥2-GCM overlap occurred in the first three scenarios, and only **1,324.2 km²** did so under SSP5-8.5 in 2061–2080, approximately **0.92%** of the ≥2/4 future suitable consensus area.
 
 
+## Elevational redistribution of climatic suitability
+
+A **post hoc, area-weighted elevational analysis** has been completed for **171 American calibration occurrence cells**, **10 unique Colombian localities**, and the present/four future consensus suitability maps. Elevation is a descriptive spatial variable; it was **not included as an SDM predictor**.
+
+- Observed occurrence median elevation: **168 m** across American calibration presences versus **990 m** for Colombian localities.
+- Current Colombian suitable area: **379,223.5 km²**, area-weighted median elevation **242 m** (IQR 193–624 m); **70.90%** below 500 m.
+- Future consensus (≥2/4 GCMs): area-weighted median elevation **1,031–1,416 m**, despite **61.95–63.40%** reductions in total suitable area.
+- Change-class medians across future scenarios: **loss 211–220 m**, **persistence 968–1,191 m**, **gain 1,512–1,732 m**.
+- Under SSP5-8.5 for 2061–2080: gain **66,446.8 km²** at median **1,732 m**, persistence **77,549.1 km²** at median **1,191 m**, and loss **301,674.4 km²** at median **220 m**.
+
+These estimates describe **an upslope redistribution of geographically suitable climates**, not observed upslope dispersal or an intrinsic elevation preference.
+
+**Analytical outputs:** [results/altitude/](results/altitude/) holds four CSV tables, including observed-occurrence summaries, suitable-area elevation summaries, elevation-band areas, and gain/loss/persistence summaries.
+
+**Reproducible R scripts:** [R/12_altitudinal_analysis.R](R/12_altitudinal_analysis.R) recomputes the area-weighted tables using the original rasters and occurrence data; [R/13_altitudinal_figure.R](R/13_altitudinal_figure.R) generates the two-panel Figure 6 as 400-dpi PNG, TIFF, and vector PDF. See [methodology, provenance and figure caption](docs/elevational_redistribution.md).
+
+**Provenance:** The repository CSVs reflect the numerical precision of the R-console results generated in October 2026. The original local occurrence-level inputs, rasters, and high-resolution Figure 6 export are not yet deposited here. Figure 6 will be added after the original RStudio export is supplied and verified.
+
 ## Repository structure
 
 ```text
@@ -152,6 +171,9 @@ Run the scripts in `R/` sequentially:
 9. `08_projection_colombia.R`
 10. `09_mop_extrapolation.R`
 11. `10_maps.R`
+12. `11_future_consensus_maps.R` (future-consensus map template)
+13. `12_altitudinal_analysis.R` (requires the original local rasters/occurrence CSVs)
+14. `13_altitudinal_figure.R` (rebuilds Figure 6 from altitude CSVs)
 
 The scripts assume that the raw GBIF export and WorldClim rasters are available locally. Large environmental rasters and binary R objects are intentionally ignored by Git.
 
