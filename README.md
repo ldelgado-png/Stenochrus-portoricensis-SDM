@@ -44,6 +44,7 @@ The final predictor set is **BIO1, BIO2, BIO4, BIO12, BIO14, BIO15**.
 **Protocol defined; local raster downloads and model refits not yet executed.** We are evaluating whether the presence-only model is sensitive to geographic variation in GBIF sampling effort using the author-published Schizomida order-level and Arachnida class-level `n_obs` rasters. The source **5-km WGS84 raster has 2.5 arc-min cells**, matching the WorldClim grid resolution; pixel origin and masking are checked before overlay. The primary time window is cumulative 1980–2025. Zero-count source cells remain eligible for weighted background sampling with a positive probability floor. The original uniform background and LQHP/RM1 model remain the reference.
 
 - [Documented experimental design, sources and limitations](docs/sampling_bias_elgabbas.md)
+- [R/16_preflight_sampling_bias.R](R/16_preflight_sampling_bias.R) — **run first**; read-only check of original RDS object, climate rasters, packages and prior downloads before starting an OSF download.
 - [R/16_sampling_effort_prepare.R](R/16_sampling_effort_prepare.R) — downloads the Schizomida/Arachnida raster layers, aligns them to the original M200 grid and audits effort coverage.
 - [R/17_sampling_bias_models.R](R/17_sampling_bias_models.R) — prepares uniform and effort-weighted backgrounds and, after explicitly enabling model fitting, evaluates 40 Maxnet candidates per background and projected suitability in Colombia where original grids are available.
 
