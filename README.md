@@ -133,7 +133,13 @@ These estimates describe **an upslope redistribution of geographically suitable 
 
 **Reproducible R scripts:** [R/12_altitudinal_analysis.R](R/12_altitudinal_analysis.R) recomputes the area-weighted tables using the original rasters and occurrence data; [R/13_altitudinal_figure.R](R/13_altitudinal_figure.R) generates the two-panel Figure 6 as 400-dpi PNG, TIFF, and vector PDF. See [methodology, provenance and figure caption](docs/elevational_redistribution.md).
 
-**Provenance:** The repository CSVs reflect the numerical precision of the R-console results generated in October 2026. The original local occurrence-level inputs, rasters, and high-resolution Figure 6 export are not yet deposited here. Figure 6 will be added after the original RStudio export is supplied and verified.
+### Figure 6 — Elevational redistribution
+
+![Figure 6. Elevational redistribution of climatic suitability in Colombia](figures/altitude/Figure_altitudinal_redistribution_FINAL.png?raw=true)
+
+**Figure 6.** (A) Percentage of climatically suitable area across elevational bands in Colombia under current and future consensus projections. (B) Area-weighted median elevations and interquartile ranges of loss, persistence and gain under future scenarios. Suitability was defined by agreement of ≥2 of four CMIP6 GCMs at the fixed 10TP threshold (0.2123639). This is a shift in mapped climatic suitability, **not direct evidence of species migration**. [Full methodology and caption](docs/elevational_redistribution.md).
+
+**Provenance:** The repository CSVs reflect the numerical precision of the R-console results generated in October 2026. The Figure 6 PNG provided by the author has now been uploaded to `figures/altitude/`. The original local occurrence-level inputs, climate/elevation rasters, and TIFF/PDF figure exports are not yet deposited.
 
 ## Repository structure
 
