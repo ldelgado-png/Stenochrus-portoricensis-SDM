@@ -1,0 +1,4 @@
+layer,eligible_cells,positive_eligible,positive_eligible_pct,original_background_n,max_positive_fraction_in_original_size_bg,n_occ_positive,n_bg_original_positive,potential_focal_self_inclusion
+Schizomida_nobs,135940,93,0.0684125,9987,0.00931211,113,3,true
+Arachnida_nobs,135940,21552,15.8540533,9987,2.15800541,159,1499,false
+Schizomida_nsp,135940,48,0.0353097,9987,0.00480625,112,3,true
