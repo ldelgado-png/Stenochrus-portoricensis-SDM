@@ -1,4 +1,5 @@
 # 17_sampling_bias_models.R ------------------------------------------------
+# Compatibility fix: terra::extract(SpatRaster, matrix) does not accept ID=FALSE.
 # El-Gabbas (2026): uniform versus bias-weighted background sensitivity.
 # RUN ONLY AFTER R/16_sampling_effort_prepare.R completed successfully.
 # No original outputs are overwritten. Model fitting can take several minutes.
@@ -48,7 +49,7 @@ read_effort <- function(label) {
 make_swd <- function(cells) {
   xy <- as.data.frame(terra::xyFromCell(env, cells))
   names(xy) <- c("longitude","latitude")
-  clim <- terra::extract(env, as.matrix(xy), ID=FALSE)
+  clim <- terra::extract(env, as.matrix(xy))
   z <- cbind(xy, as.data.frame(clim))
   stopifnot(all(stats::complete.cases(z)),
             !anyDuplicated(cells),
