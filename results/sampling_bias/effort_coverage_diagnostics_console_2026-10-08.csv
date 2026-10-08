@@ -1,0 +1,4 @@
+layer,archive_file,n_valid,n_positive,share_M200_positive,share_occurrences_positive,n_occurrences_nonNA,max_count
+Schizomida_nobs,n_obs_Schizomida_total_res_5.tif,136111,206,0.001513471,0.6608187,171,21
+Arachnida_nobs,n_obs_Arachnida_res_5.tif,136111,21711,0.159509518,0.9298246,171,12712
+Schizomida_nsp,n_sp_Schizomida_total_res_5.tif,136111,160,0.001175511,0.6549708,171,4
