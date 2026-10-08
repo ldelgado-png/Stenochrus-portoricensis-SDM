@@ -51,6 +51,7 @@ The final predictor set is **BIO1, BIO2, BIO4, BIO12, BIO14, BIO15**.
 - [R/16_sampling_effort_prepare.R](R/16_sampling_effort_prepare.R) — downloads the Schizomida/Arachnida raster layers, aligns them to the original M200 grid and audits effort coverage.
 - [R/18_effort_feasibility_and_dates.R](R/18_effort_feasibility_and_dates.R) — check eligible non-focal positive-effort cells, seeded weighted-background composition and focal occurrence dates **before fitting models**.
 - [R/17_sampling_bias_models.R](R/17_sampling_bias_models.R) — prepares uniform and effort-weighted backgrounds and, after explicitly enabling model fitting, evaluates 40 Maxnet candidates per background and projected suitability in Colombia where original grids are available.
+- [R/19_arachnida_bias_pilot.R](R/19_arachnida_bias_pilot.R) — **not yet run**. A single-seed, 40-candidate Arachnida n_obs pilot retaining all 171 original presences, fixed WorldClim M200, the original four spatial folds, and the original uniform model as reference; it outputs the selected-model comparison before attempting future/climate projections.
 
 **Important:** no effect on model selection, AICc, spatial predictions or future projected area can be reported until these sensitivity analyses run locally and their results are verified. A non-focal Schizomida target-group background remains conditional on sufficient independent occurrences.
 
