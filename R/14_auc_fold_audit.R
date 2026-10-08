@@ -1,7 +1,7 @@
 # R/14_auc_fold_audit.R
 # Audit the four ENMeval folds for the selected LQHP / RM = 1 model.
-# Run in the ORIGINAL modelling project, where ENMeval_object.rds or
-# the original in-memory ENMevaluation object is available.
+# Run in the ORIGINAL modelling project: reads the saved object in
+# data/ENMeval_Stenochrus_M200_SWD.rds (or an in-memory ENMevaluation object).
 # No refitting, no changes to fitted models.
 
 if (!requireNamespace("ENMeval", quietly = TRUE)) {
@@ -16,22 +16,21 @@ if (!dir.exists(repo)) stop("Project folder does not exist: ", repo)
 outdir <- file.path(repo, "results", "model_selection")
 dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
 
-if (exists("e_stenochrus", inherits = TRUE) &&
-    methods::is(get("e_stenochrus"), "ENMevaluation")) {
-  e <- get("e_stenochrus")
+if (exists("enm", inherits = TRUE) &&
+    inherits(get("enm", inherits = TRUE), "ENMevaluation")) {
+  e <- get("enm", inherits = TRUE)
+  cat("Using enm in memory.\n")
+} else if (exists("e_stenochrus", inherits = TRUE) &&
+           inherits(get("e_stenochrus", inherits = TRUE), "ENMevaluation")) {
+  e <- get("e_stenochrus", inherits = TRUE)
   cat("Using e_stenochrus in memory.\n")
 } else {
-  candidates <- list.files(
-    file.path(repo, "results"),
-    pattern = "ENMeval_object\\.rds$",
-    recursive = TRUE, full.names = TRUE, ignore.case = TRUE
-  )
-  cat("ENMeval object candidates:\n")
-  print(candidates)
-  if (length(candidates) != 1L) {
-    stop("Expected one ENMeval_object.rds file. Locate/load the fitted ENMevaluation object first.")
+  saved_object <- file.path(repo, "data", "ENMeval_Stenochrus_M200_SWD.rds")
+  if (!file.exists(saved_object)) {
+    stop("Original ENMeval object not found at: ", saved_object)
   }
-  e <- readRDS(candidates[[1]])
+  e <- readRDS(saved_object)
+  cat("Loaded object: ", saved_object, "\n", sep = "")
 }
 if (!methods::is(e, "ENMevaluation")) {
   stop("Input is not an ENMevaluation object.")
