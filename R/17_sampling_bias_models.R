@@ -173,6 +173,13 @@ selected <- do.call(rbind,lapply(split(full,full$background),function(x){
 }))
 write.csv(selected,file.path(out,"best_models_by_background.csv"),
           row.names=FALSE)
+# Distinguish fixed-configuration LQHP/RM1 from independently retuned optima.
+fixed_LQHP <- full[full$fc == "LQHP" & full$rm == 1,
+                   ,drop=FALSE]
+stopifnot(nrow(fixed_LQHP)==length(all_results))
+write.csv(fixed_LQHP,
+          file.path(out,"fixed_LQHP_RM1_by_background.csv"),
+          row.names=FALSE)
 print(selected[,c("background","fc","rm","AICc","auc.val.avg",
                   "auc.diff.avg","or.10p.avg","ncoef")],row.names=FALSE)
 cat("\nAICc is used only WITHIN each background run, never to compare\n",
