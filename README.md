@@ -180,6 +180,7 @@ Run the scripts in `R/` sequentially:
 12. `11_future_consensus_maps.R` (future-consensus map template)
 13. `12_altitudinal_analysis.R` (requires the original local rasters/occurrence CSVs)
 14. `13_altitudinal_figure.R` (rebuilds Figure 6 from altitude CSVs)
+15. `14_auc_fold_audit.R` (audits the four ENMeval LQHP/RM1 AUC validation-fold values and exports the verified fold table, if the original ENMeval object is available locally)
 
 The scripts assume that the raw GBIF export and WorldClim rasters are available locally. Large environmental rasters and binary R objects are intentionally ignored by Git.
 
