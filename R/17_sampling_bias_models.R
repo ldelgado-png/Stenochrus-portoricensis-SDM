@@ -208,14 +208,31 @@ if(length(colfile)==1L) {
   }
   ref <- predictions[["uniform_original"]]
   area <- terra::cellSize(ref,unit="km")
-  get10tp <- function(pred) {
-    pr <- terra::extract(pred, as.matrix(occs[,1:2]), ID=FALSE)[,1]
-    as.numeric(stats::quantile(pr,probs=0.10,na.rm=TRUE))
+  # Training-presence 10TP MUST be computed from all 171 calibration
+  # occurrences by predicting with each fitted model on training covariates.
+  # Extracting from the Colombian raster would discard most occurrences and
+  # mistakenly calculate 10TP on only the Colombian subset.
+  predict_training_10tp <- function(model) {
+    training_env <- as.data.frame(occs[, vars, drop=FALSE])
+    training_cloglog <- stats::predict(
+      model, newdata=training_env, type="cloglog", clamp=TRUE
+    )
+    stopifnot(length(training_cloglog)==nrow(occs),
+              all(is.finite(training_cloglog)))
+    as.numeric(stats::quantile(training_cloglog,
+                              probs=0.10, na.rm=FALSE))
   }
-  threshold_ref <- get10tp(ref)
+  thresholds <- vapply(names(all_results),function(n) {
+    e <- if(n=="uniform_original") enm else readRDS(
+      file.path(out,paste0("ENMeval_",n,"_40models.rds")))
+    row <- selected[selected$background==n,,drop=FALSE]
+    model <- ENMeval::eval.models(e)[[as.character(row$tune.args[[1]])]]
+    predict_training_10tp(model)
+  }, numeric(1))
+  threshold_ref <- thresholds[["uniform_original"]]
   metrics <- lapply(names(predictions),function(n){
     pred <- predictions[[n]]
-    thr <- get10tp(pred)
+    thr <- thresholds[[n]]
     area_suitable <- terra::global(terra::ifel(
       pred>=thr,area,NA),fun="sum",na.rm=TRUE)[1,1]
     area_fixed_reference <- terra::global(terra::ifel(
