@@ -15,7 +15,7 @@ El-Gabbas A (2026). A global, taxon-stratified, high-resolution sampling-effort 
 - Taxonomic data: `group="arachnida", descendants="schizomida"` (order-level), and `group="arachnida", descendants="all"` (whole class).
 - Metrics: observation count `n_obs` (primary effort proxy) and species count `n_sp` (secondary coverage diagnostic).
 - Cumulative `years="total"` spans 1980–2025. The source excluded records before 1980, used coordinate-quality checks distinct from the focal-species pipeline, and assigned true zero for cells without retained GBIF records.
-- Schizomida is comparatively sparse globally (~3,050 raw observations, 115 species retained after cleaning per Table 1). Whole-class Arachnida pools taxa with different observation processes and is **a control**, not a better default proxy.
+- Schizomida is comparatively sparse globally (~3,050 records reported for Schizomida after the study's data screening (verify counts against Table 1 before quantitative comparison), 115 recorded species per Table 1). Whole-class Arachnida pools taxa with different observation processes and is **a control**, not a better default proxy.
 
 ## Prespecified experimental design
 
@@ -31,8 +31,10 @@ El-Gabbas A (2026). A global, taxon-stratified, high-resolution sampling-effort 
 
 ## Implementation
 
+- [R/16_preflight_sampling_bias.R](../R/16_preflight_sampling_bias.R): **read-only local preflight**, confirms exact original ENMeval RDS, required packages, filenames of existing M200/Colombia climate rasters and any existing effort outputs; run this before attempting downloads.
 - [R/16_sampling_effort_prepare.R](../R/16_sampling_effort_prepare.R): retrieves three original GeoTIFF surfaces from OSF via `ecokit`, aligns to original M200, reports effort coverage and intersection with presences.
 - [R/17_sampling_bias_models.R](../R/17_sampling_bias_models.R): builds four background treatments and optional independent target-group candidates; writes background CSVs; requires `RUN_MODELS <- TRUE` to execute the full 40-candidate tuning per alternative; if an original Colombia six-variable raster is available, projects selected models and computes basic metrics.
+- Important: the repository's original R/17 script previously calculated a training 10TP by extracting only from the Colombian prediction raster; this has been **corrected** to model predictions at all 171 calibration points to avoid regional subset bias.
 - The original local M200 raster expected by these scripts is `WorldClim_2.5m_M200_6vars.tif` somewhere inside the project's `data/` folder. The original selected model and old background are loaded from `data/ENMeval_Stenochrus_M200_SWD.rds` (the actual RDS filename confirmed by the author).
 
 ## Pendientes (español)
