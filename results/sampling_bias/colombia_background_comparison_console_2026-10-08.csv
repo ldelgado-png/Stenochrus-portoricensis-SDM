@@ -1,0 +1,4 @@
+background,threshold_10tp,area_own10tp_km2,change_pct_vs_uniform,spearman_vs_uniform,mean_abs_cloglog_difference,area_uniform_numeric_threshold_km2,gain_own10tp_km2,loss_own10tp_km2,intersection_own10tp_km2,jaccard_own10tp
+uniform_original,0.21236,379223.5,0,1,0,379223.5,,,,
+Arachnida_floor10,0.19989,422979.4,11.54,0.9620,0.03734,393140.2,61573.03,17817.13,361406.4,0.8199
+Arachnida_floor20,0.18610,445692.1,17.53,0.9757,0.03044,392286.4,72626.38,6157.83,373065.7,0.8256
