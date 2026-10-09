@@ -1,24 +1,25 @@
-# Migration from the current Windows project
+# Local-project provenance and repository layout
 
-Current working project during development:
+We developed our analyses using the following local Windows working directory:
 
 `D:/Usuario/Documents/EcdysisSDM/Stenochrus_portoricensis/`
 
-Recommended copy/move targets for the GitHub repository:
+We organize the project around these source and output relationships, which also indicate why some large input files are managed outside the Git repository.
 
-| Current file | Repository destination | Commit to Git? |
+| Local project file or asset | Repository location or documentation | Provenance convention |
 |---|---|---|
-| `data/Stenochrus_portoricensis_GBIF_America_raw.csv` | `data/processed/` | Yes, if licensing/size are acceptable |
-| `data/Stenochrus_portoricensis_America_QC_unique.csv` | `data/processed/` | Yes |
-| `data/Stenochrus_occ_final_172.csv` | `data/processed/` | Yes |
-| `data/Stenochrus_background_M200.csv` | `data/processed/` | Usually yes if reasonably small |
-| `data/Stenochrus_background_M200.rds` | `data/processed/` | No (ignored) |
-| `data/WorldClim_2.5m_M200_6vars.tif` | `data/rasters/` | No (ignored) |
-| `data/worldclim/.../*.tif` | local `data/worldclim/` | No (ignored) |
-| Wallace RunA/RunB evaluation CSVs | `wallace/RunA`, `wallace/RunB` | Yes |
-| Wallace session `.rds` | same folder locally | No (ignored) |
-| Final model-selection CSVs | `results/model_selection/` | Yes |
-| Permutation importance CSV | `results/variable_importance/` | Yes |
-| Final PNG/PDF figures | `figures/` | Yes, if size is reasonable |
+| `data/Stenochrus_portoricensis_GBIF_America_raw.csv` | `data/processed/` | Original GBIF occurrence input |
+| `data/Stenochrus_portoricensis_America_QC_unique.csv` | `data/processed/` | Filtered unique occurrence coordinates |
+| `data/Stenochrus_occ_final_172.csv` | `data/processed/` | Environment-grid occurrence subset |
+| `data/Stenochrus_background_M200.csv` | `data/processed/` | Original uniformly sampled calibration background |
+| `data/Stenochrus_background_M200.rds` | Local original data | R binary working object |
+| `data/WorldClim_2.5m_M200_6vars.tif` | Local environmental rasters | M200 WorldClim stack |
+| `data/worldclim/.../*.tif` | Local `data/worldclim/` | Source global WorldClim rasters |
+| Wallace RunA/RunB exports | `wallace/RunA/`, `wallace/RunB/` | Model evaluation CSV exports |
+| Wallace session RDS | Local Wallace folders | Machine-specific session state |
+| Model-selection tables | `results/model_selection/` | Selected configuration evaluations |
+| Permutation-importance tables | `results/variable_importance/` | Predictor diagnostics |
+| Figures | `figures/` | Visual analytical products |
+| GBIF sampling-effort background, model and Colombia comparison outputs | `results/sampling_bias/original_outputs_2026-10-08/` | Archived original user-supplied RAR snapshot |
 
-After copying files, run `R/00_setup.R` and then each numbered script. Adjust only local file paths when necessary; avoid changing analytical settings if the goal is exact reproducibility.
+We distinguish the complete local R working environment from the subset of verified and deposited files in GitHub. We preserve analytical settings and spatial inputs when comparing reproductions of our model.
