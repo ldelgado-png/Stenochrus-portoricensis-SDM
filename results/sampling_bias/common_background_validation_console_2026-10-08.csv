@@ -1,0 +1,4 @@
+background,auc_common_mean,omission_10tp_mean,mean_delta_auc_vs_uniform,folds,n_validation_background,assessment
+uniform_original,0.7417520,0.1104651,0,4,9987,spatial_block_common_background
+Arachnida_floor10,0.7077332,0.1104651,-0.03401889,4,9987,spatial_block_common_background
+Arachnida_floor20,0.7116284,0.1104651,-0.03012365,4,9987,spatial_block_common_background
