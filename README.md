@@ -1,10 +1,10 @@
 # Potential distribution of *Stenochrus portoricensis* in Colombia
 
-Reproducible ecological niche modelling / species distribution modelling workflow for *Stenochrus portoricensis* (Schizomida: Hubbardiidae), calibrated with American occurrence records and transferred to Colombia.
+We present our reproducible ecological niche modelling / species distribution modelling workflow for *Stenochrus portoricensis* (Schizomida: Hubbardiidae), calibrated with American occurrence records and transferred to Colombia.
 
 ## Current status
 
-The repository captures the modelling workflow developed to date:
+We document the following analytical components of our modelling workflow:
 
 - American GBIF occurrence quality control and geographic filtering.
 - Construction of an operational 200 km calibration area (**M200**).
@@ -37,30 +37,30 @@ The repository captures the modelling workflow developed to date:
 | Predictors | **6** |
 | Candidate Maxnet configurations | **40** |
 
-The final predictor set is **BIO1, BIO2, BIO4, BIO12, BIO14, BIO15**.
+We retained **BIO1, BIO2, BIO4, BIO12, BIO14 and BIO15** as our six predictors.
 
 ## GBIF sampling-effort sensitivity (El-Gabbas 2026)
 
-**Update (8 October 2026):** Alternative Arachnida-weighted backgrounds (floors 0.10 and 0.20, seed 125), **80 additional Maxnet fits** (40 per background), and present-day Colombia projection and overlap comparisons **have been completed**. All three scenarios selected LQHP/RM1. With model-specific 10TP thresholds, suitable areas were **379,223.5 km²** (uniform), **422,979.4 km²** (floor 0.10) and **445,692.1 km²** (floor 0.20), corresponding to **+11.54%** and **+17.53%** under weighted backgrounds. Spearman rank correlations with uniform were **0.9620** and **0.9757**, respectively. **Diagnostic 25 is COMPLETE:** a common-background four-fold spatial evaluation obtained mean AUC **0.7417520** (uniform), **0.7077332** (Arachnida floor 0.10) and **0.7116284** (Arachnida floor 0.20), with mean 10TP omission **0.1104651** in all three. Differences vs uniform were **−0.03401889** (0.10) and **−0.03012365** (0.20); future transfers under weighted treatments remain **PENDING**. The original files received in the 42-file RAR have been archived under `results/sampling_bias/original_outputs_2026-10-08/`; final diagnostic-25 files generated after that RAR snapshot have not yet been uploaded. We are evaluating whether the presence-only model is sensitive to geographic variation in GBIF sampling effort using the author-published Schizomida order-level and Arachnida class-level `n_obs` rasters. The source **5-km WGS84 raster has 2.5 arc-min cells**, matching the WorldClim grid resolution; pixel origin and masking are checked before overlay. The primary time window is cumulative 1980–2025. Zero-count source cells remain eligible for weighted background sampling with a positive probability floor. The original uniform background and LQHP/RM1 model remain the reference.
+**Our sampling-effort sensitivity analysis (8–9 October 2026).** We compared the original uniform background with two Arachnida-weighted backgrounds (probability floors 0.10 and 0.20; seed 125). We fitted **80 additional Maxnet candidates** (40 per alternative), retained the original 40 candidates, and selected LQHP/RM1 within all three treatments. We projected the three full-data models to the same Colombian WorldClim grid. With their individual 10TP thresholds, we obtained suitable areas of **379,223.5 km²** (uniform), **422,979.4 km²** (Arachnida 0.10) and **445,692.1 km²** (Arachnida 0.20), or changes of **+11.54%** and **+17.53%**. We measured rank correlations with the uniform prediction of **0.9620** and **0.9757**, respectively. For **diagnostic 25**, we independently sampled one common 9,987-cell evaluation background and refitted LQHP/RM1 within the same four spatial folds. We found mean AUC values of **0.7417520** (uniform), **0.7077332** (Arachnida 0.10) and **0.7116284** (Arachnida 0.20); corresponding weighted-minus-uniform AUC differences were **−0.03401889** and **−0.03012365**. Mean 10TP omission was **0.1104651** in all treatments. We interpret these as comparisons under a shared **uniform evaluation reference**, not as evidence of universal predictive superiority. We archived the supplied original rasters, backgrounds and fitted models under [`results/sampling_bias/original_outputs_2026-10-08/`](results/sampling_bias/original_outputs_2026-10-08/). We used El-Gabbas's cumulative 1980–2025 effort rasters at 2.5-arc-min resolution and preserved the original uniform model as our baseline.
 
-**Observed M200 effort coverage:** Schizomida observation counts were positive in only **206/136,111 cells (0.151%)** and overlapped **113/171 focal presence cells**; Arachnida observation counts were positive in **21,711/136,111 cells (15.951%)**, overlapping **159/171 presences**. The 171-presence exclusion leaves 135,940 eligible M200 cells, of which **93** have Schizomida-positive effort and **21,552** have Arachnida-positive effort. The 9,987-point original uniform background contains 3 and 1,499 positive-effort cells for Schizomida and Arachnida, respectively. Simulations using seeds 123–127 selected **93/9,987** Schizomida-positive cells in every 1%-floor draw, **75–83/9,987** with a 5% floor, and **9,347–9,410/9,987** Arachnida-positive cells with a 1% floor. An original-record date audit found **136/171** focal records from 1980–2025, **27** before 1980, **four** in 2026, **four** without usable years, and **97/171** from 2010–2025; the temporal mismatch with the 1980–2025 effort rasters must be disclosed. Consequently **uniform background remains the primary model, Schizomida weighting is exploratory, and Arachnida weighting is a broader-taxon comparator**. The three original rasters remain in the author's local project; the [console-derived coverage table](results/sampling_bias/effort_coverage_diagnostics_console_2026-10-08.csv) is archived here.
+**Our effort-coverage audit.** We detected Schizomida-positive effort in **206/136,111** valid M200 climate cells (0.151%), overlapping **113/171** focal presence cells, and Arachnida-positive effort in **21,711/136,111** (15.951%), overlapping **159/171** presences. After excluding the 171 focal presence cells, we retained 135,940 eligible cells: **93** Schizomida-positive and **21,552** Arachnida-positive. In the original 9,987-cell uniform background, we observed just **3** Schizomida-positive cells and **1,499** Arachnida-positive. Across seeds 123–127, our exploratory draws yielded **93/9,987** Schizomida-positive cells for each 0.01-floor draw, **75–83** with a 0.05 floor, and **9,347–9,410** Arachnida-positive cells with a 0.01 floor. We recovered **136/171** focal records from 1980–2025, **27** from before 1980, four from 2026 and four with unknown years (including **97/171** from 2010–2025). We therefore acknowledge temporal mismatch and treat Schizomida-weighted draws as exploratory, Arachnida weighting as a broader-taxon contrast, and the uniform background as our reference. We archived our [console-derived coverage table](results/sampling_bias/effort_coverage_diagnostics_console_2026-10-08.csv) and the [original rasters](results/sampling_bias/original_outputs_2026-10-08/).
 
-- **[Results of diagnostics 18–25 (8 October 2026)](docs/sampling_bias_results_2026-10-08.md)** — full interpretation, provenance, model comparison and outstanding analyses.
-- [Common-background validation summary (diagnostic 25)](results/sampling_bias/common_background_validation_console_2026-10-08.csv).
-- [Arachnida weighting diagnostics (five-seed means and selected seed 125)](results/sampling_bias/arachnida_floor_diagnostics_console_2026-10-08.csv), [Maxnet selected-model comparison](results/sampling_bias/maxnet_background_comparison_console_2026-10-08.csv), [Colombia suitability and overlap results](results/sampling_bias/colombia_background_comparison_console_2026-10-08.csv). These CSVs were transcribed from the author's console, not copied from local output files.
+- **[Our sampling-effort results, diagnostics 18–25](docs/sampling_bias_results_2026-10-08.md)** — full interpretation, provenance, model comparisons and limitations.
+- **[Our diagnostic 25 report](docs/common_background_validation_2026-10-09.md)** and [common-background evaluation summary](results/sampling_bias/common_background_validation_console_2026-10-08.csv).
+- [Arachnida weighting diagnostics (five-seed means and selected seed 125)](results/sampling_bias/arachnida_floor_diagnostics_console_2026-10-08.csv), [Maxnet selected-model comparison](results/sampling_bias/maxnet_background_comparison_console_2026-10-08.csv), [Colombia suitability and overlap results](results/sampling_bias/colombia_background_comparison_console_2026-10-08.csv). We transcribed these summary CSVs from our R console; we distinguish them from the deposited original outputs.
 - [Documented experimental design, sources and limitations](docs/sampling_bias_elgabbas.md)
 - [Original positive-cell eligibility results](results/sampling_bias/effort_background_feasibility_console_2026-10-08.csv), [five-seed background draws](results/sampling_bias/background_draw_feasibility_seeds_console_2026-10-08.csv), and [171-record date audit](results/sampling_bias/occurrence_years_console_2026-10-08.csv)
 - [R/16_preflight_sampling_bias.R](R/16_preflight_sampling_bias.R) — **run first**; read-only check of original RDS object, climate rasters, packages and prior downloads before starting an OSF download.
 - [R/16_sampling_effort_prepare.R](R/16_sampling_effort_prepare.R) — downloads the Schizomida/Arachnida raster layers, aligns them to the original M200 grid and audits effort coverage.
 - [R/18_effort_feasibility_and_dates.R](R/18_effort_feasibility_and_dates.R) — check eligible non-focal positive-effort cells, seeded weighted-background composition and focal occurrence dates **before fitting models**.
 - [R/17_sampling_bias_models.R](R/17_sampling_bias_models.R) — prepares uniform and effort-weighted backgrounds and, after explicitly enabling model fitting, evaluates 40 Maxnet candidates per background and projected suitability in Colombia where original grids are available.
-- [R/19_arachnida_bias_pilot.R](R/19_arachnida_bias_pilot.R) — **not yet run**. A single-seed, 40-candidate Arachnida n_obs pilot retaining all 171 original presences, fixed WorldClim M200, the original four spatial folds, and the original uniform model as reference; it outputs the selected-model comparison before attempting future/climate projections.
+- [R/19_arachnida_bias_pilot.R](R/19_arachnida_bias_pilot.R) — we provide this independent one-seed Arachnida effort-pilot implementation for reproducibility; our completed diagnostic 22 instead used the floors 0.10 and 0.20.
 
-**Important:** The present-day model selection and spatial-sensitivity results are now reported from the author's R-console outputs; the numerical transcription is available in the dedicated report and CSV summaries below. Absolute AICc values and background-dependent validation AUCs are **not evidence of superiority across treatments**. A non-focal Schizomida target-group background remains pending. Common-background spatial validation has been completed and did **not** show improved AUC for Arachnida effort-weighted backgrounds in this evaluation. Sensitivity of **future** projections has not yet been evaluated.
+**Interpretation.** We compare AICc only **within** individual background experiments. We do not treat validation AUC from treatment-specific backgrounds as cross-treatment performance evidence. On our common uniformly sampled evaluation background, the original uniform model produced the highest mean AUC; we refrain from claiming that this establishes optimal bias correction. Our CMIP6 future results below represent the **uniform-background** model rather than a comparison among all three training backgrounds.
 
 ## Selected model
 
-Both the direct ENMeval analysis and the independent Wallace workflow selected the same Maxnet configuration:
+We selected the same Maxnet configuration in our direct ENMeval and Wallace workflows:
 
 **Feature classes = LQHP; regularization multiplier = 1.**
 
@@ -76,11 +76,11 @@ Both the direct ENMeval analysis and the independent Wallace workflow selected t
 - Akaike weight: 0.9595153
 - Non-zero coefficients: 31
 
-**Four-fold AUC audit (verified 2026-10-08).** The original ENMeval object was recovered locally. Fold validation AUCs were 0.673455, 0.747687, 0.813294, and 0.731585; corresponding fold-specific absolute training–validation AUC differences were 0.202805, 0.113214, 0.035568, and 0.092589. R's `all.equal()` checks confirmed the reported `auc.val.avg = 0.7415053` and `auc.diff.avg = 0.1110438`; `abs.auc.diff = TRUE` and `validation.bg = "partition"`. These figures are not obtained by subtracting the model-wide training AUC from the average validation AUC. The per-fold CSV is in [results/model_selection/](results/model_selection/ENMeval_LQHP_RM1_auc_folds_verified_console.csv), with [provenance and reproducibility notes](docs/auc_fold_audit.md) and an [audit script](R/14_auc_fold_audit.R). **The Wallace fold-by-fold aggregation has now also been verified** against the original RunB group-export CSV; the published summary statistics remain unchanged.
+**Four-fold AUC audit (verified 2026-10-08).** We recovered the original ENMeval object locally. Fold validation AUCs were 0.673455, 0.747687, 0.813294, and 0.731585; corresponding fold-specific absolute training–validation AUC differences were 0.202805, 0.113214, 0.035568, and 0.092589. Our R `all.equal()` checks confirmed the reported `auc.val.avg = 0.7415053` and `auc.diff.avg = 0.1110438`; `abs.auc.diff = TRUE` and `validation.bg = "partition"`. These figures are not obtained by subtracting the model-wide training AUC from the average validation AUC. The per-fold CSV is in [results/model_selection/](results/model_selection/ENMeval_LQHP_RM1_auc_folds_verified_console.csv), with [provenance and reproducibility notes](docs/auc_fold_audit.md) and an [audit script](R/14_auc_fold_audit.R). **We also verified the Wallace fold-by-fold aggregation** against the original RunB group-export CSV; the published summary statistics remain unchanged.
 
 ### Wallace replication
 
-After combining the two Wallace runs and recalculating ΔAICc and Akaike weights across all 40 models:
+We combined the two Wallace runs and recalculated ΔAICc and Akaike weights across all 40 models:
 
 - AUC train: 0.8489026
 - Mean validation AUC: 0.7945660
@@ -92,13 +92,13 @@ After combining the two Wallace runs and recalculating ΔAICc and Akaike weights
 - Akaike weight: 0.9934626
 - Non-zero coefficients: 32
 
-**Four-fold AUC audit (verified 2026-10-08).** Original Wallace RunB validation AUCs: 0.696025, 0.842932, 0.765290 and 0.874017. Corresponding fold-specific AUC differences: 0.184942, 0.072651, 0.102770 and 0.051723. Their means reproduce `auc.val.avg = 0.794566` and `auc.diff.avg = 0.1030216`; the author's R `all.equal()` checks passed. See the [Wallace four-fold CSV](results/model_selection/Wallace_LQHP_RM1_auc_folds_verified_console.csv), [validation script](R/15_wallace_auc_fold_audit.R), and the [complete ENMeval–Wallace AUC audit record](docs/auc_fold_audit.md). These results verify the reported fold-level averages without demonstrating equivalence of background realization or AICc between workflows.
+**Four-fold AUC audit (verified 2026-10-08).** Original Wallace RunB validation AUCs: 0.696025, 0.842932, 0.765290 and 0.874017. Corresponding fold-specific AUC differences: 0.184942, 0.072651, 0.102770 and 0.051723. We recovered means of `auc.val.avg = 0.794566` and `auc.diff.avg = 0.1030216`; our R `all.equal()` checks passed. See the [Wallace four-fold CSV](results/model_selection/Wallace_LQHP_RM1_auc_folds_verified_console.csv), [validation script](R/15_wallace_auc_fold_audit.R), and the [complete ENMeval–Wallace AUC audit record](docs/auc_fold_audit.md). We interpret this as verification of the fold-level averages, not equivalence of background realization or AICc between workflows.
 
-Absolute AICc values should not be compared between the direct ENMeval and Wallace runs because the background realization and evaluation details differ. The relevant result is the concordant selection of **LQHP / RM = 1** within each candidate set.
+We do not compare absolute AICc between the direct ENMeval and Wallace analyses because their background realizations and evaluation details differ. We emphasize the concordant selection of **LQHP / RM = 1** within each candidate set.
 
 ## Variable importance
 
-Permutation importance of the selected direct ENMeval model:
+We estimated permutation importance for the selected direct ENMeval model:
 
 | Predictor | Relative importance (%) |
 |---|---:|
@@ -111,18 +111,18 @@ Permutation importance of the selected direct ENMeval model:
 
 ## Transfer to Colombia
 
-The continuous cloglog prediction for Colombia ranged from **0.0004206 to 0.925758**, with a mean of **0.1771955**.
+We obtained a continuous cloglog prediction for Colombia ranging from **0.0004206 to 0.925758**, with a mean of **0.1771955**.
 
-Strict univariate extrapolation relative to the full M200 environmental range affected approximately **0.74%** of valid Colombian cells, mainly because of BIO1. Under the standardized present/future MOP workflow, **684 of 54,539 cells (1.254%)** in Colombia were classified as strict non-analog conditions relative to the 9,987 sampled background environments.
+We found strict univariate extrapolation in approximately **0.74%** of valid Colombian cells, mainly because of BIO1. Under the standardized present/future MOP workflow, **684 of 54,539 cells (1.254%)** in Colombia were classified as strict non-analog conditions relative to the 9,987 sampled background environments.
 
 
 ## Future climate projections
 
-Future climatic suitability was evaluated with the selected LQHP / RM = 1 model using WorldClim CMIP6 bioclimatic layers at 2.5 arc-min resolution. Four GCMs were used: **HadGEM3-GC31-LL, MIROC6, CNRM-CM6-1, and MRI-ESM2-0**, under **SSP1-2.6** and **SSP5-8.5** for **2041–2060** and **2061–2080**. This yielded 16 GCM–SSP–period projections.
+We evaluated future climatic suitability with the uniform-background selected LQHP/RM1 model and WorldClim CMIP6 bioclimatic layers at 2.5 arc-min resolution. We used four GCMs: **HadGEM3-GC31-LL, MIROC6, CNRM-CM6-1, and MRI-ESM2-0**, under **SSP1-2.6** and **SSP5-8.5** for **2041–2060** and **2061–2080**. We produced 16 GCM–SSP–period projections.
 
-A fixed 10th-percentile training-presence threshold (**10TP = 0.2123639**) was applied to the present and all future predictions. Present climatically suitable area was **379,223.5 km²**.
+We applied one fixed 10th-percentile training-presence threshold (**10TP = 0.2123639**) to the present and all future predictions. Present climatically suitable area was **379,223.5 km²**.
 
-Using the primary consensus criterion of suitability supported by at least two of four GCMs (≥2/4), future suitable area was:
+Using our primary consensus criterion of suitability supported by at least two of four GCMs (≥2/4), we estimated future suitable area as follows:
 
 | SSP | Period | Future suitable area (km²) | Change from present | Persistence (km²) | Loss (km²) | Gain (km²) |
 |---|---|---:|---:|---:|---:|---:|
@@ -131,18 +131,18 @@ Using the primary consensus criterion of suitability supported by at least two o
 | SSP1-2.6 | 2061–2080 | 143,206.2 | -62.24% | 113,141.4 | 266,082.2 | 30,064.8 |
 | SSP5-8.5 | 2061–2080 | 143,995.9 | -62.03% | 77,549.1 | 301,674.4 | 66,446.8 |
 
-All 16 individual GCM projections showed net contraction relative to the current suitable area.
+We observed net contraction in all 16 individual GCM projections relative to the current suitable area.
 
 ### Future environmental novelty
 
-Strict non-analog conditions increased substantially under stronger forcing and later periods. Under the ≥2/4 GCM NAC-consensus criterion, non-analog climates covered **28.26%**, **54.57%**, **32.09%**, and **76.50%** of Colombia for SSP1-2.6 2041–2060, SSP5-8.5 2041–2060, SSP1-2.6 2061–2080, and SSP5-8.5 2061–2080, respectively.
+We found that strict non-analog conditions increased substantially under stronger forcing and later periods. Under the ≥2/4 GCM NAC-consensus criterion, non-analog climates covered **28.26%**, **54.57%**, **32.09%**, and **76.50%** of Colombia for SSP1-2.6 2041–2060, SSP5-8.5 2041–2060, SSP1-2.6 2061–2080, and SSP5-8.5 2061–2080, respectively.
 
 Unanimous 4/4 NAC agreement covered **9.22%**, **24.45%**, **10.75%**, and **45.99%** of the country across the same scenarios. Despite this increase in environmental novelty, overlap between multi-GCM suitable predictions and multi-GCM NAC was very limited: no ≥2-GCM overlap occurred in the first three scenarios, and only **1,324.2 km²** did so under SSP5-8.5 in 2061–2080, approximately **0.92%** of the ≥2/4 future suitable consensus area.
 
 
 ## Elevational redistribution of climatic suitability
 
-A **post hoc, area-weighted elevational analysis** has been completed for **171 American calibration occurrence cells**, **10 unique Colombian localities**, and the present/four future consensus suitability maps. Elevation is a descriptive spatial variable; it was **not included as an SDM predictor**.
+We completed a **post hoc, area-weighted elevational analysis** for **171 American calibration occurrence cells**, **10 unique Colombian localities**, and the present/four future consensus suitability maps. Elevation is a descriptive spatial variable; it was **not included as an SDM predictor**.
 
 - Observed occurrence median elevation: **168 m** across American calibration presences versus **990 m** for Colombian localities.
 - Current Colombian suitable area: **379,223.5 km²**, area-weighted median elevation **242 m** (IQR 193–624 m); **70.90%** below 500 m.
@@ -150,11 +150,11 @@ A **post hoc, area-weighted elevational analysis** has been completed for **171 
 - Change-class medians across future scenarios: **loss 211–220 m**, **persistence 968–1,191 m**, **gain 1,512–1,732 m**.
 - Under SSP5-8.5 for 2061–2080: gain **66,446.8 km²** at median **1,732 m**, persistence **77,549.1 km²** at median **1,191 m**, and loss **301,674.4 km²** at median **220 m**.
 
-These estimates describe **an upslope redistribution of geographically suitable climates**, not observed upslope dispersal or an intrinsic elevation preference.
+We interpret these estimates as **an upslope redistribution of geographically suitable climates**, not evidence of observed upslope dispersal or intrinsic elevation preference.
 
-**Analytical outputs:** [results/altitude/](results/altitude/) holds four CSV tables, including observed-occurrence summaries, suitable-area elevation summaries, elevation-band areas, and gain/loss/persistence summaries.
+**We archive analytical outputs in:** [results/altitude/](results/altitude/) holds four CSV tables, including observed-occurrence summaries, suitable-area elevation summaries, elevation-band areas, and gain/loss/persistence summaries.
 
-**Reproducible R scripts:** [R/12_altitudinal_analysis.R](R/12_altitudinal_analysis.R) recomputes the area-weighted tables using the original rasters and occurrence data; [R/13_altitudinal_figure.R](R/13_altitudinal_figure.R) generates the two-panel Figure 6 as 400-dpi PNG, TIFF, and vector PDF. See [methodology, provenance and figure caption](docs/elevational_redistribution.md).
+**We provide reproducible R scripts:** [R/12_altitudinal_analysis.R](R/12_altitudinal_analysis.R) recomputes the area-weighted tables using the original rasters and occurrence data; [R/13_altitudinal_figure.R](R/13_altitudinal_figure.R) generates the two-panel Figure 6 as 400-dpi PNG, TIFF, and vector PDF. See [methodology, provenance and figure caption](docs/elevational_redistribution.md).
 
 ### Figure 6 — Elevational redistribution
 
@@ -162,7 +162,7 @@ These estimates describe **an upslope redistribution of geographically suitable 
 
 **Figure 6.** (A) Percentage of climatically suitable area across elevational bands in Colombia under current and future consensus projections. (B) Area-weighted median elevations and interquartile ranges of loss, persistence and gain under future scenarios. Suitability was defined by agreement of ≥2 of four CMIP6 GCMs at the fixed 10TP threshold (0.2123639). This is a shift in mapped climatic suitability, **not direct evidence of species migration**. [Full methodology and caption](docs/elevational_redistribution.md).
 
-**Provenance:** The repository CSVs reflect the numerical precision of the R-console results generated in October 2026. The Figure 6 PNG provided by the author has now been uploaded to `figures/altitude/`. The original local occurrence-level inputs, climate/elevation rasters, and TIFF/PDF figure exports are not yet deposited.
+**Provenance:** The repository CSVs reflect the numerical precision of the R-console results generated in October 2026. We archived the Figure 6 PNG to `figures/altitude/`. We retain the original local occurrence-level inputs and climate/elevation rasters in our R project; the repository includes the deposited products described above.
 
 ## Repository structure
 
@@ -187,7 +187,7 @@ Stenochrus-portoricensis-SDM/
 
 ## Reproducibility order
 
-Run the scripts in `R/` sequentially:
+We organize the scripts in `R/` in this sequence:
 
 1. `00_setup.R`
 2. `01_occurrence_qc.R`
@@ -205,7 +205,7 @@ Run the scripts in `R/` sequentially:
 14. `13_altitudinal_figure.R` (rebuilds Figure 6 from altitude CSVs)
 15. `14_auc_fold_audit.R` (audits the four ENMeval LQHP/RM1 AUC validation-fold values and exports the verified fold table, if the original ENMeval object is available locally)
 
-The scripts assume that the raw GBIF export and WorldClim rasters are available locally. Large environmental rasters and binary R objects are intentionally ignored by Git.
+We developed the scripts using our local GBIF and WorldClim inputs. We provide selected sampled background, raster and RDS outputs in the sampling-bias archive; the full original climate input is managed separately.
 
 ## Key figures
 
@@ -249,4 +249,4 @@ Panels A–D summarize agreement among four GCMs in strict non-analog climatic c
 
 ## AI declaration
 
-This project used ChatGPT (OpenAI) to assist with workflow development, code implementation, troubleshooting, data analysis, and visualization. All methodological decisions, data interpretation, and scientific conclusions remain the responsibility of the authors.
+We used ChatGPT (OpenAI) to assist with workflow development, code implementation, troubleshooting, data analysis and visualization. We retain responsibility for all methodological decisions, data interpretation and scientific conclusions.
