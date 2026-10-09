@@ -2,9 +2,9 @@
 
 ## Scope and provenance
 
-This is a post hoc, descriptive analysis of the elevation of occurrence cells and projected climatically suitable cells in Colombia. Elevation **was not used as a predictor** in the fitted Maxnet model.
+We performed a post hoc, descriptive analysis of the elevation of occurrence cells and projected climatically suitable cells in Colombia. We **did not use elevation as a predictor** in our fitted Maxnet model.
 
-The CSV tables in [results/altitude/](../results/altitude/) were transcribed from the **R console outputs of the completed local analysis (October 2026)**. Their published precision reflects the displayed results and may differ slightly from unrounded outputs. The original occurrence-level CSVs, WorldClim elevation raster and present/future GeoTIFFs remain local; they are not represented as publicly archived here. The supplied [R/12_altitudinal_analysis.R](../R/12_altitudinal_analysis.R) re-computes the CSVs from those inputs, and [R/13_altitudinal_figure.R](../R/13_altitudinal_figure.R) builds the two-panel figure. The author has deposited the [Figure 6 PNG](../figures/altitude/Figure_altitudinal_redistribution_FINAL.png) in the repository. The original TIFF/PDF exports remain local; print resolution and image metadata have not been independently audited.
+We transcribed the CSV tables in [results/altitude/](../results/altitude/) from our **local R console output (October 2026)**. We report the console's displayed precision, which may differ slightly from unrounded values. We retain our original occurrence-level CSVs, WorldClim elevation raster and present/future GeoTIFFs in the local modelling project; we do not represent those source files as deposited here. We provide [R/12_altitudinal_analysis.R](../R/12_altitudinal_analysis.R) to reproduce the CSVs from those inputs and [R/13_altitudinal_figure.R](../R/13_altitudinal_figure.R) to produce our two-panel figure. We deposited the [Figure 6 PNG](../figures/altitude/Figure_altitudinal_redistribution_FINAL.png) in the repository; we retain our original TIFF/PDF exports locally. We identify the deposited format without claiming an independent print-resolution or metadata audit.
 
 ## Inputs and workflow
 
@@ -24,7 +24,7 @@ The CSV tables in [results/altitude/](../results/altitude/) were transcribed fro
 | American calibration cells | 171 | 2 | 18 | 168 | 325.9 | 432.5 | 2,274 |
 | Colombian quality-controlled localities | 10 | 892 | 963.2 | 990 | 1,078.8 | 1,116.2 | 1,609 |
 
-136 of the 171 American calibration presences (79.5%) were below 500 m. No Colombian locality was below 500 m.
+We found **136/171** American calibration presences (79.5%) below 500 m, while none of the ten Colombian localities was below 500 m.
 
 ### Suitable climate under current and future scenarios
 
@@ -47,11 +47,11 @@ Present suitable area: **70.90% below 500 m** and **85.27% below 1,000 m**. Late
 | SSP1-2.6, 2061–2080 | 212 | 993 | 1,544 |
 | SSP5-8.5, 2061–2080 | 220 | 1,191 | 1,732 |
 
-Under SSP5-8.5, 2061–2080, 301,674.4 km² are classified as lost suitable area, 77,549.1 km² as persistent, and 66,446.8 km² as gained.
+Under SSP5-8.5 for 2061–2080, we classified **301,674.4 km²** as lost suitable area, **77,549.1 km²** as persistent and **66,446.8 km²** as gained.
 
 ## Reproducibility
 
-On the computer holding the original modelling inputs, in RStudio, set the environment variable STENOCHRU_SDM_PROJECT to the Windows original modelling folder, then source R/12_altitudinal_analysis.R followed by R/13_altitudinal_figure.R from the cloned GitHub repository. The input GeoTIFFs and occurrence CSV files must exist in their original folder structure. Required R packages: terra, geodata, ggplot2, patchwork. The analysis script checks raster geometries, occurrence counts, change-class coding and suitable-area totals.
+We reproduce this analysis in our local R environment using `STENOCHRU_SDM_PROJECT` as the modelling-folder path, running `R/12_altitudinal_analysis.R` followed by `R/13_altitudinal_figure.R`. We use the original GeoTIFF and occurrence CSV file structure and the R packages terra, geodata, ggplot2 and patchwork. Our code checks raster geometry, occurrence counts, change-class coding and suitable-area totals.
 
 ## Figure 6 caption
 
@@ -59,4 +59,4 @@ On the computer holding the original modelling inputs, in RStudio, set the envir
 
 ## Interpretation and cautions
 
-This is an **upslope redistribution of the mapped climatic suitability footprint**, not evidence of observed migration, elevation preference, future establishment or population decline. Local microclimates and subterranean environments, spatial sampling bias and anthropogenic introductions were not modelled; changes in areas with novel future climates require particular caution. Band proportions are compositional (summing to 100% for each scenario); absolute loss/persistence/gain areas avoid confusing proportional increases with net increases in overall suitability.
+We interpret the result as an **upslope redistribution of the mapped climatic-suitability footprint**, not evidence of observed migration, elevational preference, future establishment or population decline. We did not model local microclimates, subterranean environments, geographic sampling bias or human-mediated introductions, and we interpret projected changes under novel climate conditions cautiously. We report band proportions as compositional summaries (summing to 100% per scenario) and use absolute loss/persistence/gain areas to avoid conflating proportional redistribution with net gains in climatic suitability.
