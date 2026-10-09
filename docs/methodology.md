@@ -1,58 +1,56 @@
-# Methodological record
+# Our methodological record
 
 ## 1. Occurrence scope
 
-The modelling objective is to estimate climatic suitability for *Stenochrus portoricensis* in Colombia using occurrence information from the Americas. Records from Europe and other continents were excluded from calibration. American records were initially retained regardless of whether populations were native or introduced because the project explicitly seeks the realized environmental space represented by American populations; this choice must be acknowledged when interpreting transferability and niche meaning.
+We estimated climatic suitability for *Stenochrus portoricensis* in Colombia using occurrence data from the **Americas**. We excluded records from Europe and all other continents. We retained American records initially regardless of whether populations were native or introduced because we aimed to characterize the realised environmental space represented by the available American occurrences. We acknowledge this assumption when discussing geographic transferability and niche interpretation.
 
 ## 2. GBIF and coordinate quality control
 
-Initial retrieval: 398 georeferenced PRESENT records. Explicit country filtering retained 369 records in the Americas.
-
-CoordinateCleaner tests used:
+We retrieved **398 georeferenced PRESENT** records and retained **369** after geographic filtering to the Americas. We applied the following CoordinateCleaner screening tests:
 
 ```r
 c("capitals", "centroids", "equal", "gbif", "institutions", "zeros")
 ```
 
-The spatial-valid summary was 358 TRUE and 11 FALSE. Flagged records were not removed automatically because this synanthropic species can legitimately occur in cities or near institutions.
+We obtained **358 TRUE** and **11 FALSE** records in the spatial validity summary. We reviewed flagged records rather than removing them automatically, since this synanthropic species can occur legitimately in cities and near institutions.
 
-Two coordinate problems were treated explicitly:
+We excluded two categories of unsupported coordinates:
 
-1. GBIF key `477927176` (MCZ IZ 102977), verbatim locality "COLOMBIA, near Cali", was georeferenced to Córdoba and marked GEOLocate score 49, medium precision, unverified / under review. The biological occurrence was retained conceptually but its coordinate was excluded from modelling.
-2. Twenty-nine records at exactly -96.33162, 38.82081, USA, originated from a GenBank-mined material-sample dataset and lacked locality / georeferencing support. All 29 were excluded rather than retaining one duplicate.
+1. We excluded the coordinates for GBIF key `477927176` (MCZ IZ 102977), whose verbatim locality was "COLOMBIA, near Cali" but whose assigned coordinates placed it in Córdoba. The record's GEOLocate score (49), medium precision and unverified status did not support its modelled position.
+2. We excluded all **29** USA records mapped to exactly `-96.33162, 38.82081`. They came from a GenBank-mined material-sample dataset without adequate locality or georeferencing support.
 
-After these exclusions, 339 records remained.
+We retained **339** georeferenced records after these targeted exclusions.
 
 ## 3. Duplicate reduction
 
-Exact duplicate coordinates were reduced using a quality-priority ordering that favored preserved specimens, lower coordinate uncertainty, presence of locality information, and presence of year. This produced 234 unique exact coordinates.
+We reduced exact coordinate duplicates using a quality-priority ordering favoring preserved specimens, lower coordinate uncertainty, locality information and collection year. We retained **234 unique exact coordinates**.
 
-## 4. Calibration area (M)
+## 4. Accessible calibration area (M)
 
-Alternative geodesic occurrence buffers of 5, 100, 200, and 300 km were explored. M200 was selected as the primary operational calibration hypothesis. The operational M200 is the geodesic union of 200 km buffers around the 234 quality-controlled unique coordinates.
+We explored geodesic occurrence-buffer distances of 5, 100, 200 and 300 km and selected **M200** as our operational calibration hypothesis. We defined the area as the geodesic union of 200-km buffers around the 234 quality-controlled unique-coordinate records.
 
-Important: climate was not masked with Natural Earth land polygons in the final workflow because this erroneously removed valid WorldClim cells on small islands/cays. WorldClim's native ocean NA mask was retained instead.
+We preserved the native WorldClim ocean `NA` mask rather than imposing Natural Earth land polygons; preliminary land masking had discarded valid WorldClim cells on small islands and cays.
 
 ## 5. Environmental predictors
 
-WorldClim 2.1 bioclimatic variables at 2.5 arc-min resolution were used. After correlation screening and VIF reduction, the final predictors were:
+We sampled WorldClim 2.1 bioclimatic variables at 2.5 arc-min resolution. Following correlation screening and VIF reduction, we retained:
 
-- BIO1 Annual Mean Temperature
-- BIO2 Mean Diurnal Range
-- BIO4 Temperature Seasonality (SD × 100)
-- BIO12 Annual Precipitation
-- BIO14 Precipitation of Driest Month
-- BIO15 Precipitation Seasonality (Coefficient of Variation)
+- BIO1 — annual mean temperature
+- BIO2 — mean diurnal range
+- BIO4 — temperature seasonality (SD × 100)
+- BIO12 — annual precipitation
+- BIO14 — precipitation of the driest month
+- BIO15 — precipitation seasonality (coefficient of variation)
 
-The 234 exact-coordinate records occupied 172 unique WorldClim cells. One Florida record (GBIF key `4923620954`) fell in an original WorldClim NA cell and was excluded from ENMeval rather than imputed, yielding 171 effective presences.
+Our 234 unique-coordinate records occupied **172** WorldClim grid cells. We excluded GBIF key `4923620954` from the final model because its original WorldClim cell lacked complete predictors, leaving **171 effective calibration presences**.
 
 ## 6. Background
 
-M200 contained 136,111 valid environmental cells. A random sample of 10,000 cells was drawn. Thirteen background cells coinciding with presence cells were removed, leaving 9,987 background points for the direct ENMeval analysis.
+We identified **136,111 valid environmental cells** in M200. We drew 10,000 background cells and excluded 13 that coincided with presence cells, retaining **9,987** original uniform-background cells for direct ENMeval calibration.
 
 ## 7. ENMeval tuning
 
-The successful direct ENMeval run used SWD format:
+We fitted the original model using species-with-data (SWD) inputs and four spatial `block` folds:
 
 ```r
 ENMeval::ENMevaluate(
@@ -70,50 +68,47 @@ ENMeval::ENMevaluate(
 )
 ```
 
-Forty configurations were evaluated. LQHP / RM = 1 was selected by minimum AICc and also had the highest mean validation AUC in the direct run.
+We evaluated **40 configurations** and selected **LQHP/RM1** by minimum AICc. The same configuration also had the highest mean validation AUC within the original direct-ENMeval candidate run.
 
 ## 8. Wallace replication
 
-Wallace 2.2.1 was run with:
+We reproduced parameter selection using **Wallace 2.2.1**, with 171 user-specified occurrences, the same six raster predictors, the same M200 polygon, 10,000 background points randomly sampled by Wallace, four block groups, Maxnet and clamping.
 
-- 171 user-specified occurrences
-- the same six rasters
-- the same user-specified M200 polygon
-- 10,000 random background points sampled by Wallace
-- Block (k = 4)
-- maxnet
-- feature classes L, LQ, H, LQH, LQHP
-- clamping on
+Because the Wallace interface allowed only integer RM stepping, we evaluated two complementary runs:
 
-Because the Wallace UI accepted only an integer multiplier-step value, the eight RM values were evaluated in two complementary runs:
+- RunA: 0.5, 1.5, 2.5 and 3.5
+- RunB: 1, 2, 3 and 4
 
-- RunA: 0.5, 1.5, 2.5, 3.5
-- RunB: 1, 2, 3, 4
+We combined the 40 evaluation rows and recalculated ΔAICc and Akaike weights across the complete set. We again selected **LQHP/RM1**. We treat this configuration agreement as workflow replication, not independent predictive validation.
 
-The 40 tables were combined and ΔAICc / Akaike weights recalculated across the full set. Wallace also selected LQHP / RM = 1.
+## 9. Response curves and variable importance
 
-## 9. Response curves and importance
+We produced conditional response curves by varying one predictor across its presence-data range while holding all others at their medians. Because our model includes linear, quadratic, hinge and product features, we interpret the resulting curves as conditional model responses, not physiological tolerances.
 
-Response curves were generated conditionally by varying one predictor across the observed presence range while holding the remaining predictors at their medians. Because the selected model contains L, Q, H and P features, these curves are conditional model responses and should not be interpreted as physiological tolerance curves.
-
-Permutation importance was quantified as mean loss in AUC across 50 permutations of each predictor, then normalized to sum to 100%.
+We estimated permutation importance as the mean change in AUC after 50 permutations of each predictor, normalized to total 100%.
 
 ## 10. Colombia projection
 
-The selected direct maxnet model was transferred to six WorldClim layers cropped/masked to Colombia, using cloglog output and clamping. The resulting prediction ranged from 0.0004206 to 0.925758 (mean 0.1771955).
+We transferred the selected original Maxnet model to six WorldClim 2.1 predictors cropped and masked to Colombia, using cloglog output and clamping. We obtained prediction values ranging from **0.0004206 to 0.925758** (mean **0.1771955**).
 
-## 11. Extrapolation / novelty
+## 11. Extrapolation and novelty
 
-Strict univariate extrapolation was assessed by comparing every Colombian raster cell against the full min/max range of each predictor across M200. Only BIO1 and BIO4 exceeded M200 limits, affecting 391 and 11 cells respectively (402 total cells; ~0.74% of valid Colombia cells).
+We assessed strict univariate extrapolation by comparing Colombian raster values with the min–max environmental ranges of all cells in M200. We found extrapolation beyond M200 for **BIO1 in 391** Colombian cells and **BIO4 in 11** cells, representing **402 unique cells** in total (approximately 0.74% of valid Colombian cells).
 
-A multivariate MOP analysis was also run using the 9,987 sampled M200 background environments as the reference matrix and the Colombian raster stack as the transfer environment. MOP settings included Euclidean distance, scaling and centering, all-distance calculation, and rescaling to 0–1.
+We also calculated multivariate mobility-oriented parity (MOP) using our **9,987** uniform-background environments as the calibration reference and the Colombian environmental raster stack as the projection space. We used centered and scaled Euclidean distances, including all-distance calculation and rescaling to 0–1.
 
-MOP distances:
+| MOP statistic | Value |
+|---|---:|
+| Median | 0.1967223 |
+| 90th percentile | 0.3900485 |
+| 95th percentile | 0.4344312 |
+| 99th percentile | 0.5585029 |
+| Maximum | 1 |
 
-- median: 0.1967223
-- P90: 0.3900485
-- P95: 0.4344312
-- P99: 0.5585029
-- maximum: 1
+Because the sampled reference spans narrower extrema than the complete M200 climate stack, we distinguish our reference-dependent strict non-analog count (**651 cells**, approximately 1.20%) from the complete-M200 univariate novelty assessment.
 
-Because the sampled reference has narrower extrema than the full M200 raster, its strict NAC estimate (651 cells; ~1.20%) is expected to exceed the strict full-M200 estimate.
+## 12. GBIF sampling-effort sensitivity
+
+We used the taxon-stratified GBIF effort rasters of El-Gabbas (2026) to evaluate alternative background-sampling designs. We kept the original uniform treatment and calibrated two Arachnida-weighted sensitivity scenarios (floor fractions **0.10** and **0.20**, seed **125**). We evaluated 40 additional Maxnet configurations per weighted background and selected LQHP/RM1 in all treatments.
+
+We then projected the three treatments to the same Colombia grid and compared continuous and 10TP-thresholded suitability. In a four-fold common-background validation (diagnostic 25), we obtained mean AUC values of **0.7417520** for uniform, **0.7077332** for Arachnida floor 0.10 and **0.7116284** for Arachnida floor 0.20. We interpret these results conditional on their shared uniform evaluation distribution. We provide the detailed design, source files and limitations in [sampling_bias_elgabbas.md](sampling_bias_elgabbas.md) and [common_background_validation_2026-10-09.md](common_background_validation_2026-10-09.md).
