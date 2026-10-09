@@ -63,12 +63,26 @@ The own-threshold gains were +43,755.9 km² for floor 0.10 and +66,468.6 km² fo
 
 The suitability rankings remain strongly concordant, while threshold-dependent area assignments are appreciably sensitive to the background treatment and 10TP definition. This is a descriptive spatial comparison, **not** evidence of spread, colonisation, or corrected ecological accuracy.
 
-## 6. Open analyses (write-up checklist in Spanish)
+## 6. Common-background spatial validation (diagnostic 25)
 
-- [PENDIENTE] Ejecutar y verificar diagnóstico 25: validación espacial por pliegues sobre un fondo de evaluación común, independiente de las celdas utilizadas para ajustar los fondos. No se dispone todavía de resultados numéricos ni se debe afirmar superioridad predictiva.
+A four-fold spatial-block comparison with a **single common evaluation background** was completed after the preceding analyses. Using the original 171 occurrences and spatial-fold assignments, 9,987 eligible and unique background cells were sampled with seed `20261008` after removing the presence and background training cells from all three background treatments. Twelve fold-specific Maxnet models were fitted (3 treatments × 4 folds), with the shared LQHP feature class and RM = 1. Evaluation used the same withheld occurrence fold and the same common background fold for all three treatments; training-presence predictions defined a fold-specific 10TP omission threshold. This is spatial cross-validation, not a new external presence test; the tuning choices had already been made on the focal dataset.
+
+| Treatment | Mean AUC, shared evaluation BG | Mean omission at 10TP | Mean paired AUC difference vs uniform |
+|---|---:|---:|---:|
+| Uniform original | **0.7417520** | 0.1104651 | Reference |
+| Arachnida floor 0.10 | 0.7077332 | 0.1104651 | **−0.03401889** |
+| Arachnida floor 0.20 | 0.7116284 | 0.1104651 | **−0.03012365** |
+
+Unlike the background-dependent mean validation AUCs in diagnostic 22, this shared-background comparison favors the **uniform** treatment. The lower mean AUC of both weighted backgrounds does not establish the universal superiority of a uniform background, because the study uses one shared background realization, four spatial folds, and an evaluation-background distribution that does not necessarily reproduce presence-recording effort. No formal significance test or completely independent external evaluation was undertaken. The three mean 10TP omission rates were identical.
+
+**Source and reproducibility:** [Diagnostic-25 console-transcribed summary](../results/sampling_bias/common_background_validation_console_2026-10-08.csv) documents the user's completed local R console output. The RAR supplied in this conversation predates completion of the 25th diagnostic; it contains the common evaluation background and only eight stored fold-model objects (four uniform, four Arachnida 0.10), but not the four Arachnida 0.20 objects or the three final evaluation tables. Those are not yet present in the supplied archive. The diagnostic is **analytically complete** and its full artifact deposit is **pending**.
+
+## 7. Open analyses (write-up checklist in Spanish)
+
+- [COMPLETADO] Ejecutado el diagnóstico 25: validación espacial de cuatro pliegues con fondo de evaluación común, AUC uniforme 0,7417520; Arachnida 0,10 = 0,7077332; Arachnida 0,20 = 0,7116284. [PENDIENTE DE ARCHIVO] Incorporar CSV originales de resultados y los cuatro objetos RDS de Arachnida 0,20 que no estaban en el RAR anterior.
 - [PENDIENTE] Evaluar independencia taxonómica de Arachnida y viabilidad de un *target-group background* de Schizomida sin *S. portoricensis*; evaluar sensibilidad temporal 1980–2025 por separado de los 171 registros originales.
 - [PENDIENTE] Proyectar escenarios futuros con los modelos ponderados únicamente con los mismos GCM, SSP, periodos, máscaras y criterios empleados en el escenario uniforme.
-- [PENDIENTE] Depositar en GitHub, tras revisión de tamaños y licencias, los CSV locales definitivos, GeoTIFF de predicción/diferencia y objetos RDS o un enlace de archivo verificable. Este informe solo incorpora cifras de consola; no contiene los archivos binarios.
+- [PENDIENTE DE ARCHIVO] Depositar en GitHub los CSV originales, GeoTIFF y RDS aportados por el usuario, conservar sus checksums y completar los cuatro modelos de Arachnida 0,20 del diagnóstico 25; los resultados de consola siguen diferenciados de los archivos originales.
 - [PENDIENTE] Examinar visualmente los mapas de ganancias/pérdidas y posible concentración geográfica del sesgo. No inferir relevancia regional específica sin inspección cartográfica.
 
 ## Files currently on the author's local machine
