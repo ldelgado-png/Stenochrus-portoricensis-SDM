@@ -1,0 +1,7 @@
+floor_fraction,seed_type,ara_positive_pct,effective_blocks_1deg,top10_pct,bio4_shift_sd
+0.01,selected_background,94.01,133.5,17.44,0.482
+0.05,mean_5seeds_123_127,77.650,161.94,15.240,0.4026
+0.10,mean_5seeds_123_127,65.884,190.10,13.146,0.3386
+0.20,mean_5seeds_123_127,52.670,221.74,10.992,0.2686
+0.10,selected_seed125,65.89,189.5,13.03,0.342
+0.20,selected_seed125,52.85,223.5,10.82,0.272
