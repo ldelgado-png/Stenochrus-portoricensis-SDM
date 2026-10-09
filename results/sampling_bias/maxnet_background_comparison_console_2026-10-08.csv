@@ -1,0 +1,4 @@
+background,fc,rm,AICc_within_background,auc_val_avg,auc_diff_avg,or_10p_avg,ncoef
+uniform_original,LQHP,1,2912.104,0.7415053,0.1110438,0.1046512,31
+Arachnida_floor10,LQHP,1,2882.623,0.7519602,0.1124150,0.1104651,28
+Arachnida_floor20,LQHP,1,2894.033,0.7455467,0.1130777,0.1104651,27
