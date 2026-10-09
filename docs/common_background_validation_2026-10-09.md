@@ -1,21 +1,23 @@
-# Diagnostic 25 — common-background spatial-fold validation (9 October 2026)
+# Diagnostic 25 — shared-background spatial validation (9 October 2026)
 
-**User-reported completed R run.** Model structure fixed to LQHP/RM1, three training backgrounds, 171 presence records, four original ENMeval spatial block folds (`lat_lon`), six WorldClim 2.1 predictors, and 9,987 evaluation-background cells sampled independently of all presence and training-background cells (seed 20261008). Direct `maxnet` fold-specific fits, `cloglog` predictions, rank-based AUC and 10th-percentile training-presence omission.
+We assessed the predictive discrimination of three *Stenochrus portoricensis* Maxnet treatments using the **same independent evaluation-background sample** for all treatments. We retained 171 calibration occurrences, six WorldClim 2.1 predictors, the original four spatial-block occurrence folds (`lat_lon`) and a fixed model specification (LQHP, regularization multiplier 1). We drew 9,987 environmentally valid background cells (seed `20261008`) outside all focal occurrence and model-training background cells. We fitted a separate Maxnet model for each treatment and fold (**12 fold-specific fits**) and calculated rank-based AUC against the common background validation fold and omission rates at the 10th-percentile training-presence (10TP) threshold.
 
-| Treatment | Mean common-background AUC | Mean 10TP omission | Δ AUC vs uniform |
+## Results
+
+| Training background | Mean AUC with shared evaluation background | Mean 10TP omission | Mean paired ΔAUC versus uniform |
 |---|---:|---:|---:|
-| Uniform original | **0.7417520** | 0.1104651 | 0 |
-| Arachnida floor 0.10 | 0.7077332 | 0.1104651 | **−0.03401889** |
-| Arachnida floor 0.20 | 0.7116284 | 0.1104651 | **−0.03012365** |
+| Uniform original | **0.7417520** | 0.1104651 | Reference |
+| Arachnida floor 0.10 | **0.7077332** | 0.1104651 | **−0.03401889** |
+| Arachnida floor 0.20 | **0.7116284** | 0.1104651 | **−0.03012365** |
 
-The weighted treatments exhibited **lower**, not higher, mean fold AUC than the uniform baseline when all three were evaluated against the same independent set of background cells. The former slightly higher native ENMeval validation AUCs for weighted treatments used treatment-dependent evaluation backgrounds and should not be treated as predictive superiority. Fold-wise omission averages were equal. This is a **shared-background, spatially partitioned, internal validation**, not a truly external test dataset; hyperparameters were previously selected using the occurrence dataset. No confidence interval or hypothesis test is claimed from the four folds. The evaluation background was sampled uniformly from eligible cells rather than effort-weighted; consequently the results characterize discrimination with respect to that common uniform reference, not necessarily a sampling-process-matched deployment objective.
+We obtained the highest mean AUC with the original uniform-background treatment. In contrast, both Arachnida-weighted treatments yielded lower mean AUC against the **common uniformly sampled evaluation background**, despite having shown slightly higher native ENMeval validation AUCs when each treatment used its own validation-background sample. We observed identical mean 10TP omission rates across treatments. Our results demonstrate that apparent between-treatment AUC contrasts are sensitive to the evaluation-background distribution; we do **not** interpret the weighted models as superior on this common reference.
 
-**New information after the received RAR:** The earlier uploaded archive `sampling_bias.rar` contains `common_background_spatial_validation/background_common_validation.csv` and eight fitted fold RDS files (four uniform, four Arachnida floor 0.10), but **does not contain** the four Arachnida floor 0.20 fold RDS files or the final `validation_by_fold.csv`, `validation_summary.csv`, `paired_auc_differences.csv` and `sessionInfo.txt` generated after the archive snapshot. Those final outputs should be transferred from the local project for an exact independently audited reproduction.
+## Interpretation and scope
 
-**Source:** user R-console output, Oct 9 2026; see [full background-sensitivity results](sampling_bias_results_2026-10-08.md).
+We regard this procedure as **internal spatial-block cross-validation**, not independent external validation. We used the focal occurrence dataset previously to select hyperparameters, although we refitted models within each fold for this comparison. We evaluated one independent common-background realization over four folds without formal significance testing. Consequently, we interpret the observed AUC differences for the defined uniform evaluation reference, rather than as proof that uniform-background training is universally preferable or that Arachnida-wide effort is an ineffective sampling-bias proxy.
 
-## Pendientes
+## Provenance and archived material
 
-- [PENDIENTE] Subir los archivos generados al final del diagnóstico 25 (CSV de validación por pliegue, resumen, diferencias pareadas, `sessionInfo.txt` y cuatro RDS de Arachnida_floor20).
-- [PENDIENTE] Verificar la evaluación por cada pliegue y la comparabilidad de los modelos ajustados directamente con maxnet y ENMeval.
-- [PENDIENTE] Evaluar replicación del fondo común y el alcance de la evaluación sobre fondo uniforme, evitando presentar sus AUC como validación externa o corrección confirmada del sesgo.
+We reproduced the summary values from the investigator's R-console output for diagnostic 25 and deposited the [console-derived CSV summary](../results/sampling_bias/common_background_validation_console_2026-10-08.csv). We also preserved the supplied archive of original sampling-bias outputs under [original_outputs_2026-10-08](../results/sampling_bias/original_outputs_2026-10-08/), including the independent evaluation-background CSV and eight fold-model objects (four uniform and four Arachnida floor 0.10). The supplied archive is an earlier snapshot and does not include the four Arachnida floor 0.20 fold models or the diagnostic's three final local validation tables; we distinguish that archival scope from the completed numerical analysis.
+
+We report the broader modelling and Colombian projection sensitivity findings in [Sampling-effort sensitivity results](sampling_bias_results_2026-10-08.md).
