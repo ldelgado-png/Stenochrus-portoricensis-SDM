@@ -1,0 +1,2 @@
+comparison,area_floor10_km2,area_floor20_km2,intersection_km2,union_km2,area_only_floor10_km2,area_only_floor20_km2,jaccard,all_three_suitable_km2,any_three_suitable_km2,fraction_3of3_among_any_suitable,study_mask_area_km2
+Arachnida_floor10_vs_Arachnida_floor20,422979.4096,445692.0669,409168.6898,459502.7868,13810.7198,36523.3772,0.890460,361299.5806,465553.8136,0.776064,1160945.6623
