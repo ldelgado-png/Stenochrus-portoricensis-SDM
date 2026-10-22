@@ -2,6 +2,10 @@
 
 We present our reproducible ecological niche modelling / species distribution modelling workflow for *Stenochrus portoricensis* (Schizomida: Hubbardiidae), calibrated with American occurrence records and transferred to Colombia.
 
+## Manuscript submission readiness (21 October 2026)
+
+The current NeoBiota draft has undergone an additional language, citation and structural audit. We documented the concrete release gates—including confirmation of all five authors' names/affiliations and the missing Figure 1 image—in our [submission-readiness checklist](docs/submission_readiness_2026-10-21.md). A new [R script](R/31_figure1_calibration_map.R) exports Figure 1 in PNG, TIFF and PDF from the original QC records; those graphics have not yet been generated or deposited. No manuscript has been submitted through the journal portal.
+
 ## Current status
 
 We document the following analytical components of our modelling workflow:
