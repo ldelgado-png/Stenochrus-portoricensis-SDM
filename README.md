@@ -2,6 +2,10 @@
 
 We present our reproducible ecological niche modelling / species distribution modelling workflow for *Stenochrus portoricensis* (Schizomida: Hubbardiidae), calibrated with American occurrence records and transferred to Colombia.
 
+## Main manuscript and ancillary analyses
+
+The main manuscript addresses changes in suitable area, elevation and climatic novelty in Colombia, with a concise complementary comparison of present-day background sensitivity. The [analysis guide](docs/analysis_guide.md) links the primary outputs and the full ancillary diagnostics: sampling-effort coverage and temporal audits, seeded-draw feasibility and weight-floor diagnostics, detailed validation and overlap tables, AUC audits, Wallace replication, response curves and permutation importance.
+
 ## Manuscript submission readiness (21 October 2026)
 
 The current NeoBiota draft has undergone an additional language, citation and structural audit. We documented the concrete release gates—including confirmation of all five authors' names/affiliations and the missing Figure 1 image—in our [submission-readiness checklist](docs/submission_readiness_2026-10-21.md). A new [R script](R/31_figure1_calibration_map.R) exports Figure 1 in PNG, TIFF and PDF from the original QC records; those graphics have not yet been generated or deposited. No manuscript has been submitted through the journal portal.
@@ -15,7 +19,7 @@ We document the following analytical components of our modelling workflow:
 - WorldClim 2.1 bioclimatic predictors at 2.5 arc-min resolution.
 - Environmental-cell filtering of occurrences.
 - Maxnet tuning with ENMeval using spatial **block** partitioning.
-- Independent replication in Wallace 2.2.1.
+- Ancillary workflow replication in Wallace 2.2.1; not external predictive validation.
 - Response curves and permutation-based variable importance.
 - Continuous climatic suitability projection to Colombia.
 - Univariate extrapolation checks and multivariate MOP analysis.
