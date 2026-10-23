@@ -8,6 +8,7 @@ The primary calibration is the direct ENMeval/maxnet workflow with a uniform bac
 
 | Question or output | Deposited resources |
 | --- | --- |
+| Predictor screening and final input set | [Recovered correlation and VIF record](predictor_selection.md); [modelling methodology](methodology.md) |
 | Selected reference model and spatial validation | [Selected-model table](../results/model_selection/ENMeval_modelo_seleccionado_LQHP_RM1.csv); [40-candidate evaluation](../results/model_selection/ENMeval_resultados_M200.csv) |
 | Current suitability; manuscript Figure 2 | [Current Colombian suitability map](../figures/colombia/Stenochrus_Colombia_LQHP_RM1_FINAL_400dpi_fixed.png) |
 | Future extent and loss/persistence/gain | [All individual projections](../results/future/Future_scenarios_all_models.csv); [SSP–period agreement summaries](../results/future/Consensus_future_summary.csv) |
