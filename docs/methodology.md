@@ -33,7 +33,9 @@ We preserved the native WorldClim ocean `NA` mask rather than imposing Natural E
 
 ## 5. Environmental predictors
 
-We sampled WorldClim 2.1 bioclimatic variables at 2.5 arc-min resolution. Following correlation screening and VIF reduction, we retained:
+We considered the 19 WorldClim 2.1 bioclimatic variables at 2.5 arc-min resolution. The recovered analytical record documents a random sample of 10,000 climate-complete M200 environments, Pearson correlation screening at |r| ≥ 0.80, and a seven-variable shortlist (BIO1, BIO2, BIO4, BIO5, BIO12, BIO14 and BIO15). Multivariate collinearity was examined with VIFs calculated from linear regressions of each candidate on the remaining candidates. BIO5 had the highest recorded VIF in that shortlist and is absent from the final six-variable modelling inputs.
+
+The final predictors were:
 
 - BIO1 — annual mean temperature
 - BIO2 — mean diurnal range
@@ -41,6 +43,8 @@ We sampled WorldClim 2.1 bioclimatic variables at 2.5 arc-min resolution. Follow
 - BIO12 — annual precipitation
 - BIO14 — precipitation of the driest month
 - BIO15 — precipitation seasonality (coefficient of variation)
+
+The [recovered selection record](predictor_selection.md) contains the sampling settings, VIF implementation, recorded diagnostic values and their provenance. It distinguishes the early environmental sample from the final mask and does not assert an unrecorded fixed VIF cutoff or final post-removal VIF values.
 
 Our 234 unique-coordinate records occupied **172** WorldClim grid cells. We excluded GBIF key `4923620954` from the final model because its original WorldClim cell lacked complete predictors, leaving **171 effective calibration presences**.
 
