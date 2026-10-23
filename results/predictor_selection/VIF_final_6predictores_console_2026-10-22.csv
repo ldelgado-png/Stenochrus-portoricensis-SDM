@@ -1,0 +1,7 @@
+variable,VIF,sample_n,seed,diagnostic_type,seven_variable_VIF_matches_original,source
+bio14,4.6447225,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22
+bio12,4.5574037,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22
+bio15,2.8356041,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22
+bio2,2.2749904,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22
+bio4,1.9015481,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22
+bio1,1.2855137,10000,123,new_random_sample_from_supplied_final_calibration_raster,FALSE,researcher_console_2026-10-22

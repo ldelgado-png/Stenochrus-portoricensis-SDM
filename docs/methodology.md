@@ -44,7 +44,7 @@ The final predictors were:
 - BIO14 — precipitation of the driest month
 - BIO15 — precipitation seasonality (coefficient of variation)
 
-The [recovered selection record](predictor_selection.md) contains the sampling settings, VIF implementation, recorded diagnostic values and their provenance. It distinguishes the early environmental sample from the final mask and does not assert an unrecorded fixed VIF cutoff or final post-removal VIF values.
+After fixing the six-predictor set, we recalculated VIF using a new random sample of 10,000 climate-complete environments drawn from the supplied final M200 calibration raster, with seed 123. This subsequent check used the [standalone diagnostic script](../R/03b_vif_diagnostic.R). The [predictor-selection record](predictor_selection.md) separates the historical seven-variable check from this new six-variable diagnostic and links the console-transcribed output table. No undocumented original VIF cutoff is asserted.
 
 Our 234 unique-coordinate records occupied **172** WorldClim grid cells. We excluded GBIF key `4923620954` from the final model because its original WorldClim cell lacked complete predictors, leaving **171 effective calibration presences**.
 
