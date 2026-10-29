@@ -18,6 +18,12 @@ scenarios <- data.frame(
   label = c("SSP1-2.6 | 2041–2060", "SSP5-8.5 | 2041–2060",
             "SSP1-2.6 | 2061–2080", "SSP5-8.5 | 2061–2080"),
   expected_2of4_km2 = c(144294.6, 138796.7, 143206.2, 143995.9),
+  # Definitive area-weighted reference: results/extrapolation/NAC_consensus_summary.csv
+  expected_nac_ge2_km2 = c(328068.5, 633570.0, 372585.5, 888152.9),
+  expected_nac_ge2_pct = c(28.25873, 54.57361, 32.09328, 76.50254),
+  expected_nac_ge3_km2 = c(165355.6, 371095.0, 195888.0, 728079.6),
+  expected_nac_4_km2 = c(107016.9, 283796.1, 124756.6, 533946.4),
+  expected_overlap_km2 = c(0, 0, 0, 1324.177),
   stringsAsFactors = FALSE
 )
 
@@ -34,6 +40,15 @@ read_aligned <- function(f) {
 sum_raster <- function(r) as.numeric(terra::global(r, "sum", na.rm = TRUE)[1, 1])
 area_km <- terra::cellSize(ref, unit = "km")
 valid_cells <- sum_raster(terra::ifel(is.na(ref), 0, 1))
+valid_area_km2 <- sum_raster(terra::ifel(!is.na(ref), area_km, NA))
+if (valid_cells != 54539 || abs(valid_area_km2 - 1160946) > 10)
+  stop("Reference MOP mask changed: expected 54,539 cells and 1,160,946 km2; got ",
+       valid_cells, " cells and ", round(valid_area_km2, 2), " km2")
+verify_near <- function(actual, expected, limit, what, scenario) {
+  if (!is.finite(actual) || abs(actual - expected) > limit)
+    stop("Figure 5 mismatch (", scenario, ", ", what, "): expected ", expected,
+         ", obtained ", actual, " (tolerance ", limit, ")")
+}
 
 read_strict_nac <- function(gcm, ssp, period) {
   suffix <- paste(gcm, ssp, period, sep = "_")
@@ -100,9 +115,12 @@ for (i in seq_len(nrow(scenarios))) {
   heading <- scenarios$label[i]
   nac_layers <- lapply(GCM, read_strict_nac, ssp = ssp, period = period)
   nac_count <- terra::app(do.call(c, nac_layers), sum, na.rm = FALSE)
+  observed_nac <- unique(as.numeric(terra::values(nac_count, mat = FALSE)))
+  if (!all(observed_nac[!is.na(observed_nac)] %in% 0:4) ||
+      sum_raster(terra::ifel(!is.na(nac_count), 1, 0)) != valid_cells)
+    stop("NAC agreement classes or valid mask differ: ", ssp, " ", period)
   suffix <- paste(ssp, period, sep = "_")
-  terra::writeRaster(nac_count, file.path(out, paste0("NAC_agreement_", suffix, ".tif")),
-                     overwrite = TRUE)
+
 
   suitable_bin <- read_aligned(file.path(consensus_dir, paste0("Consensus_2of4_", suffix, ".tif")))
   bvals <- unique(as.numeric(terra::values(suitable_bin, mat = FALSE)))
@@ -122,6 +140,9 @@ for (i in seq_len(nrow(scenarios))) {
     cv <- unique(as.numeric(terra::values(cnt, mat = FALSE)))
     cv <- cv[!is.na(cv)]
     if (!all(cv %in% 0:4)) stop("GCM counts must be integers 0–4: ", suffix)
+    missing_gcm_cells <- sum_raster(terra::ifel(!is.na(ref) & is.na(cnt), 1, 0))
+    if (missing_gcm_cells > 0) stop("GCM agreement lacks ",
+                                   missing_gcm_cells, " valid cells: ", suffix)
     mismatch <- sum_raster(terra::ifel(!is.na(ref) &
                  ((cnt >= 2) != (pred == 1)), 1, 0))
     if (mismatch > 0) stop("GCM counts disagree with Consensus_2of4: ", suffix)
@@ -130,21 +151,46 @@ for (i in seq_len(nrow(scenarios))) {
     suit_classes <- terra::ifel(is.na(ref), NA, terra::ifel(pred == 1, 2, 0))
   }
 
+  # Export derived agreement only after numerical checks have passed.
+  terra::writeRaster(nac_count, file.path(out, paste0("NAC_agreement_", suffix, ".tif")),
+                     overwrite = TRUE)
   charts_nac[[i]] <- make_map(nac_count, LETTERS[i], heading, "nac", layers, limits)
   charts_suit[[i]] <- make_map(suit_classes, LETTERS[i + 4L], heading, "suit",
                                layers, limits, detailed = has_detailed_counts)
   n_nac2 <- sum_raster(terra::ifel(nac_count >= 2, 1, NA))
   km_nac2 <- sum_raster(terra::ifel(nac_count >= 2, area_km, NA))
+  km_nac3 <- sum_raster(terra::ifel(nac_count >= 3, area_km, NA))
+  km_nac4 <- sum_raster(terra::ifel(nac_count == 4, area_km, NA))
+  km_overlap <- sum_raster(terra::ifel(nac_count >= 2 & pred == 1, area_km, NA))
+  nac_cell_pct <- 100 * n_nac2 / valid_cells
+  nac_area_pct <- 100 * km_nac2 / valid_area_km2
+  verify_near(km_nac2, scenarios$expected_nac_ge2_km2[i], 10,
+              "NAC >=2 GCM area (km2)", suffix)
+  verify_near(nac_area_pct, scenarios$expected_nac_ge2_pct[i], 0.05,
+              "NAC >=2 GCM percent of AREA", suffix)
+  verify_near(km_nac3, scenarios$expected_nac_ge3_km2[i], 10,
+              "NAC >=3 GCM area (km2)", suffix)
+  verify_near(km_nac4, scenarios$expected_nac_4_km2[i], 10,
+              "NAC 4 GCM area (km2)", suffix)
+  verify_near(km_overlap, scenarios$expected_overlap_km2[i], 10,
+              "NAC/suitability >=2 GCM overlap (km2)", suffix)
   checks[[i]] <- data.frame(
     ssp = ssp, period = period, n_valid = valid_cells,
     NAC_at_least_2_GCM_cells = n_nac2,
-    NAC_at_least_2_GCM_percent = 100 * n_nac2 / valid_cells,
+    evaluated_area_km2 = valid_area_km2,
+    NAC_at_least_2_GCM_cell_percent = nac_cell_pct,
+    NAC_at_least_2_GCM_area_percent = nac_area_pct,
     NAC_at_least_2_GCM_area_km2 = km_nac2,
+    NAC_at_least_3_GCM_area_km2 = km_nac3,
+    NAC_4_of_4_GCM_area_km2 = km_nac4,
     Suitable_at_least_2_GCM_area_km2 = area2,
+    Suitable_and_NAC_at_least_2_GCM_overlap_km2 = km_overlap,
+    checks_passed = TRUE,
     detailed_suitability_counts = has_detailed_counts
   )
   message("Validated ", suffix, ": suitable ", round(area2, 1),
-          " km2; NAC ", round(100 * n_nac2 / valid_cells, 2), "% of valid cells")
+          " km2; NAC >=2/4 area-weighted ", round(nac_area_pct, 3),
+          "% (cell-count percentage ", round(nac_cell_pct, 3), "%)")
 }
 
 nac_row <- patchwork::wrap_plots(charts_nac, ncol = 4, guides = "collect") &

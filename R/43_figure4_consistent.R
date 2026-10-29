@@ -14,8 +14,25 @@ vals <- unique(terra::values(basic, mat = FALSE)); vals <- vals[!is.na(vals)]
 if (any(!is.finite(vals)) || any(vals != 1)) stop("Expected MOP_basic 1/NA coding")
 nvalid <- as.numeric(terra::global(terra::ifel(is.na(distance), 0, 1), "sum", na.rm = TRUE)[1, 1])
 nnac <- as.numeric(terra::global(terra::ifel(!is.na(distance) & !is.na(basic), 1, 0), "sum", na.rm = TRUE)[1, 1])
-cat(sprintf("Figure 4 diagnostics: valid = %d, strict NAC = %d (%.3f%%)\n",
+# Definitive common-mask benchmark (the historical 651/54,165 run is separate).
+if (nvalid != 54539 || nnac != 684)
+  stop("Current MOP does not match the definitive 54,539 valid / 684 NAC cells: ",
+       nvalid, "/", nnac)
+cell_area <- terra::cellSize(distance, unit = "km")
+total_area <- as.numeric(terra::global(
+  terra::ifel(!is.na(distance), cell_area, NA),
+  "sum", na.rm = TRUE
+)[1, 1])
+nac_area <- as.numeric(terra::global(
+  terra::ifel(!is.na(distance) & !is.na(basic), cell_area, NA),
+  "sum", na.rm = TRUE
+)[1, 1])
+if (!is.finite(total_area) || abs(total_area - 1160946) > 10)
+  stop("Current MOP valid area differs from 1,160,946 km2: ", total_area)
+cat(sprintf("Figure 4: valid = %d; NAC = %d (%.3f%% of cells).\n",
             nvalid, nnac, 100 * nnac / nvalid))
+cat(sprintf("Area-weighted: NAC = %.2f km2 (%.3f%% of %.1f km2).\n",
+            nac_area, 100 * nac_area / total_area, total_area))
 
 layers <- read_colombia_shapes(); limits <- map_limits(layers$country)
 pts <- colombia_occurrences_sf()
@@ -39,5 +56,8 @@ p <- ggplot2::ggplot() +
 
 save_publication(p, file.path(out_root, "Figure_4", "Figure_4_consistent"), 8.5, 10)
 utils::write.csv(data.frame(valid_cells = nvalid, strict_nac_cells = nnac,
-                            strict_nac_pct = 100 * nnac / nvalid),
+                            strict_nac_cell_percent = 100 * nnac / nvalid,
+                            evaluated_area_km2 = total_area,
+                            strict_nac_area_km2 = nac_area,
+                            strict_nac_area_percent = 100 * nac_area / total_area),
                  file.path(out_root, "Figure_4", "Figure_4_diagnostics.csv"), row.names = FALSE)

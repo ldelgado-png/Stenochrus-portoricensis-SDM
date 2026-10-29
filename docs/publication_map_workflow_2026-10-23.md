@@ -1,6 +1,6 @@
 # Reproducible publication maps: Figures 1, 2, 4, 5
 
-**Status: source-code update, 23 October 2026. Local execution and visual audit are pending.** This cartographic update does not refit Maxnet, modify original input rasters, or change numerical findings in the manuscript.
+**Status: scripts updated 29 October 2026. Final local execution and visual audit are still pending.** This cartographic update does not refit Maxnet, modify original input rasters, or change numerical findings in the manuscript.
 
 ## Scripts
 
@@ -9,9 +9,11 @@
 - [R/42_figure2_consistent.R](../R/42_figure2_consistent.R) — current Colombia cloglog suitability and 10 QC localities.
 - [R/43_figure4_consistent.R](../R/43_figure4_consistent.R) — current MOP distance and strict NAC overlay.
 - [R/44_figure5_consistent.R](../R/44_figure5_consistent.R) — eight future NAC / suitability panels and scenario-level checks.
-- [R/45_run_consistent_maps.R](../R/45_run_consistent_maps.R) — run all four figure scripts.
+- [R/45_run_consistent_maps.R](../R/45_run_consistent_maps.R) — run four map scripts and then the post-run audit.
+- [R/46_verify_publication_maps.R](../R/46_verify_publication_maps.R) — confirm all twelve file exports and the standardised MOP and four-scenario NAC/suitability checks.
+- [R/32_figure3_response_curves.R](../R/32_figure3_response_curves.R) — independent ENMeval-based Figure 3 curves (the original fitted model, 171 presence cells; no refit).
 
-Previously deposited PNG figures are NOT replaced by this update. They remain previews until regenerated local exports have been audited.
+All six PNG figure previews were updated on 29 October 2026. The author retains the high-resolution originals for journal submission; no further image upload is necessary for this **code-only** audit.
 
 ## Local execution
 
@@ -52,11 +54,13 @@ The original 10th-percentile presence threshold is 0.2123639. Expected areas wit
 | SSP1-2.6 | 2061–2080 | 143,206.2 |
 | SSP5-8.5 | 2061–2080 | 143,995.9 |
 
-The Figure 5 script checks area (10-km² tolerance), grid geometry, and raster class coding; it outputs Figure_5_validation.csv on completion. Successful execution and panel-by-panel visual review are still required before figures are marked final.
+The Figure 5 script checks grid geometry and class coding plus the standardised evaluation extent (**54,539 cells**, **1,160,946 km²**). It audits suitable area (≥2/4 GCMs), **area-weighted NAC >=2/4, >=3/4 and 4/4 GCMs**, and suitable–NAC overlap in all four scenarios using a **10 km² area tolerance** and **0.05 percentage-point tolerance**. Its output Figure_5_validation.csv has distinct columns for NAC percentages **by number of cells** versus **by cell-area-weighted surface**. The percentages reported in the manuscript use surface, not cell counts. Figure 4 also verifies the reference 684 strictly non-analog cells. R/45 invokes R/46 to verify that all PNG/TIFF/PDF exports and both diagnostic CSVs exist and agree with manuscript benchmarks.
+
+The author must still execute the updated scripts against the original local rasters; code inspection and a published manuscript figure are not proof that this exact code version completed successfully. Panel-by-panel visual review is also needed.
 
 ## Caveats
 
 - The ≥2/4 agreement rule is NOT a strict majority. Keep this criterion explicit.
 - Detailed suitability agreement classes 2/3/4 require all four local GCM_agreement rasters; otherwise maps correctly use a binary <2 vs ≥2 legend.
 - Historical scripts R/10_maps.R, R/11_future_consensus_maps.R, and R/31_figure1_calibration_map.R are retained.
-- No local QC occurrence CSV or unpublished climate input rasters were added in this update.
+- No local QC occurrence CSV, high-resolution figure or unpublished climate raster was added in this update.
