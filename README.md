@@ -12,10 +12,6 @@ The coordinated **R/40–45 publication-map workflow** is now available for Figu
 
 **Reproducibility status:** the code and checks are deposited; the final series has **not yet been fully rerun and visually validated** against the local GeoTIFFs. Existing repository figure PNGs remain historical previews and have not been replaced. No private local coordinate CSV or other unpublished source datasets are added in this update. See the [complete 40–45 mapping guide](docs/publication_map_workflow_2026-10-23.md) and [the coordinating script](R/45_run_consistent_maps.R).
 
-## Manuscript submission readiness (21 October 2026)
-
-The current NeoBiota draft has undergone an additional language, citation and structural audit. We documented the concrete release gates—including confirmation of all five authors' names/affiliations and the Figure 1 asset, which was not yet deposited at checklist time—in our [submission-readiness checklist](docs/submission_readiness_2026-10-21.md). A new [R script](R/31_figure1_calibration_map.R) exports Figure 1 in PNG, TIFF and PDF from the original QC records; those graphics have not yet been generated or deposited. No manuscript has been submitted through the journal portal.
-
 ## Current status
 
 We document the following analytical components of our modelling workflow:
