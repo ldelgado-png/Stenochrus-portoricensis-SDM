@@ -10,7 +10,7 @@ The main manuscript addresses changes in suitable area, elevation and climatic n
 
 The coordinated **R/40–45 publication-map workflow** is now available for Figures **1, 2, 4 and 5**. It uses a common sans-serif style, larger map labels, mainland-only Colombia framing (excluding San Andrés and Providencia), consistent administrative boundaries and metre-based reference scale bars. The topological workaround for sf/s2 crossing loops is isolated to map geometry: the individual 200-km M200 buffers are calculated using s2 before a projected polygon dissolve. Exports are PNG, TIFF at 600 dpi, and PDF.
 
-**Reproducibility status:** the code and checks are deposited; the final series has **not yet been fully rerun and visually validated** against the local GeoTIFFs. Existing repository figure PNGs remain historical previews and have not been replaced. No private local coordinate CSV or other unpublished source datasets are added in this update. See the [complete 40–45 mapping guide](docs/publication_map_workflow_2026-10-23.md) and [the coordinating script](R/45_run_consistent_maps.R).
+**Reproducibility status:** the code and checks are deposited; the final series has **not yet been fully rerun and visually validated** against the local GeoTIFFs. Updated author-provided previews for Figures 1–6 are deposited; older preview files are retained under their previous paths. The replacement previews are not a substitute for the 600-dpi TIFF/vector PDF publication exports. No private local coordinate CSV or other unpublished source datasets are added in this update. See the [complete 40–45 mapping guide](docs/publication_map_workflow_2026-10-23.md) and [the coordinating script](R/45_run_consistent_maps.R).
 
 ## Current status
 
@@ -168,7 +168,7 @@ We interpret these estimates as **an upslope redistribution of geographically su
 
 ### Figure 6 — Elevational redistribution
 
-![Figure 6. Elevational redistribution of climatic suitability in Colombia](figures/altitude/Figure_altitudinal_redistribution_FINAL.png?raw=true)
+![Figure 6. Elevational redistribution of climatic suitability in Colombia](figures/altitude/Figure_6_elevational_redistribution_2026-10-29.png?raw=true)
 
 **Figure 6.** (A) Percentage of climatically suitable area across elevational bands in Colombia under current and future consensus projections. (B) Area-weighted median elevations and interquartile ranges of loss, persistence and gain under future scenarios. Suitability was defined by agreement of ≥2 of four CMIP6 GCMs at the fixed 10TP threshold (0.2123639). This is a shift in mapped climatic suitability, **not direct evidence of species migration**. [Full methodology and caption](docs/elevational_redistribution.md).
 
@@ -223,32 +223,41 @@ We developed the scripts using our local GBIF and WorldClim inputs. We provide s
 
 ## Key figures
 
+The six images displayed below and in the elevation section are the author's updated figure previews supplied on 29 October 2026. **These PNGs are reduced-size previews, not the original high-resolution TIFF/PDF files for journal production.** Previous previews remain in their legacy paths for provenance. See the [figure asset manifest](figures/README.md).
+
+### American occurrence records and calibration area
+
+![Figure 1. American occurrence records and M200 calibration area](figures/calibration/Figure_1_M200_occurrences_2026-10-29.png?raw=true)
+
+The 234 quality-controlled American occurrence coordinates and the operational geodesic M200 calibration area (200-km buffers).
+
+
 ### Climatic suitability in Colombia
 
-![Predicted climatic suitability of Stenochrus portoricensis in Colombia](figures/colombia/Stenochrus_Colombia_LQHP_RM1_FINAL_400dpi_fixed.png?raw=true)
+![Predicted climatic suitability of Stenochrus portoricensis in Colombia](figures/colombia/Figure_2_current_suitability_2026-10-29.png?raw=true)
 
 Predicted climatic suitability in Colombia based on the selected Maxnet model
 (feature class = LQHP, regularization multiplier = 1).
 
 ### Environmental dissimilarity (MOP) in Colombia
 
-![Environmental dissimilarity in Colombia](figures/mop/mop_dissimilarity_colombia.png?raw=true)
+![Environmental dissimilarity in Colombia](figures/mop/Figure_4_current_MOP_2026-10-29.png?raw=true)
 
 Areas with higher dissimilarity indicate stronger environmental differences
 relative to the conditions represented in the M200 calibration area.
 
 ### Response curves
 
-![Response curves of the selected model](figures/response_curves/response_curves_lqhp_rm1.png?raw=true)
+![Response curves of the selected model](figures/response_curves/Figure_3_response_curves_2026-10-29.png?raw=true)
 
 Conditional response curves for the six bioclimatic predictors included in the
 selected LQHP / RM = 1 model.
 
 ### Future suitability and non-analog climate consensus
 
-![Future climatic suitability and NAC consensus](figures/colombia/Figure_future_NAC_suitability_consensus.png?raw=true)
+![Future climatic suitability and NAC consensus](figures/colombia/Figure_5_future_NAC_consensus_2026-10-29.png?raw=true)
 
-Panels A–D summarize agreement among four GCMs in strict non-analog climatic conditions (NAC). Panels E–H summarize agreement among GCMs in future climatic suitability using the fixed 10TP threshold. The reproducible mapping code is available in `R/11_future_consensus_maps.R`.
+Panels A–D summarize agreement among four GCMs in strict non-analog climatic conditions (NAC). Panels E–H summarize agreement among GCMs in future climatic suitability using the fixed 10TP threshold. The coordinated publication-map script is [`R/44_figure5_consistent.R`](R/44_figure5_consistent.R); historical plotting code remains in `R/11_future_consensus_maps.R`.
 
 ## Software used during development
 
