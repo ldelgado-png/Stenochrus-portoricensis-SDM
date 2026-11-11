@@ -15,9 +15,15 @@ We transcribed the CSV tables in [results/altitude/](../results/altitude/) from 
 - **Change codes:** Change_consensus_2of4_*.tif contains 0 = unsuitable in both periods, **1 = gain**, **2 = loss**, **3 = persistence**, verified from the current/future cell-count identities.
 - **Areas:** terra::cellSize(unit = "km") accounts for geographic cell area; elevation summary quantiles and means are **area-weighted**. Bands are <500, 500–999, 1,000–1,499, 1,500–1,999, 2,000–2,499, 2,500–2,999, and ≥3,000 m. Band percentages divide by total suitable area **within each scenario**.
 
+## Published records versus raster-extracted elevations
+
+For the **literature-based elevational comparison** with native Colombian schizomid genera, the interval explicitly documented at the two cited Colombian endpoints is **500–1,287 m a.s.l.**: El Naranjo, Dagua, Valle del Cauca, **500 m** (Villarreal et al. 2023, [doi:10.1590/1678-4766e2023005](https://doi.org/10.1590/1678-4766e2023005)); and Armenia, Quindío, **1,287 m** (de Armas & Delgado-Santa 2012, *Boletín de la Sociedad Entomológica Aragonesa* 50:183–186). These are source-reported locality elevations, not output of the WorldClim extraction. The interval describes the cited published localities; we do not assert that it is an exhaustive altitudinal limit for the species in Colombia.
+
+Separately, the post-hoc analysis in this repository extracted WorldClim elevation for **10 unique, quality-controlled Colombian coordinates**, yielding **892–1,609 m**. This range, its quartiles and other statistics remain unchanged in `results/altitude/Altitude_occurrence_summary.csv` and below because they describe a different sample and measurement method. Replacing those computed values with bibliographic endpoints would break reproducibility. The contrast does not affect the Maxnet fit or existing climate-suitability figures: elevation was not a model predictor.
+
 ## Verified outputs
 
-### Occurrences
+### Occurrences (WorldClim-extracted values, not literature endpoints)
 
 | Dataset | n | Min (m) | Q1 (m) | Median (m) | Mean (m) | Q3 (m) | Max (m) |
 |---|---:|---:|---:|---:|---:|---:|---:|
