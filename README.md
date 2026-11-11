@@ -158,6 +158,10 @@ Unanimous 4/4 NAC agreement covered **9.22%**, **24.45%**, **10.75%**, and **45.
 
 ## Elevational redistribution of climatic suitability
 
+**Published Colombian elevational interval (literature-based): 500–1,287 m a.s.l.** The lower published locality is El Naranjo, Dagua (500 m; Villarreal et al. 2023, [doi:10.1590/1678-4766e2023005](https://doi.org/10.1590/1678-4766e2023005)); the higher cited locality is Armenia (1,287 m; de Armas & Delgado-Santa 2012, *Boletín S.E.A.* 50:183–186). We use **500–1,287 m** when depicting the elevational interval explicitly reported in these publications and comparing it with native genera; this is a **literature-based interval**, not the range of the model's extracted occurrence elevations.
+
+The independent post-hoc extraction for **10 quality-controlled Colombian coordinates** gave **892–1,609 m** on the WorldClim 2.1, 2.5-arc-min elevation grid. We retain those computed values in the audit table and CSV rather than relabel them as published observations. Neither dataset is an elevational predictor of the fitted SDM; this editorial clarification does not change the climate-suitability maps or Figure 6. [Sources, scope and reproducibility](docs/elevational_redistribution.md).
+
 We completed a **post hoc, area-weighted elevational analysis** for **171 American calibration occurrence cells**, **10 unique Colombian localities**, and the present/four future consensus suitability maps. Elevation is a descriptive spatial variable; it was **not included as an SDM predictor**.
 
 - Observed occurrence median elevation: **168 m** across American calibration presences versus **990 m** for Colombian localities.
