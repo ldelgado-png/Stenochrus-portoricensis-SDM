@@ -16,7 +16,9 @@ suppressPackageStartupMessages({
 project_dir <- Sys.getenv("STENOCHRU_SDM_PROJECT", unset = getwd())
 data_dir <- file.path(project_dir, "data")
 consensus_dir <- file.path(data_dir, "WorldClim_CMIP6_future", "Consensus")
-output_dir <- file.path(project_dir, "results", "altitude")
+include_ssp245 <- identical(Sys.getenv("STENOCHRU_INCLUDE_SSP245", "FALSE"), "TRUE")
+output_dir <- file.path(project_dir, "results",
+                        if (include_ssp245) "altitude_with_SSP245" else "altitude")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 occ_cal_file <- file.path(data_dir, "Stenochrus_occ_final_172.csv")
@@ -26,6 +28,12 @@ present_file <- file.path(data_dir, "Stenochrus_prediction_Colombia_GADM_LQHP_RM
 ids <- c("SSP126_2041", "SSP585_2041", "SSP126_2061", "SSP585_2061")
 suffixes <- c("SSP126_2041-2060", "SSP585_2041-2060",
               "SSP126_2061-2080", "SSP585_2061-2080")
+if (include_ssp245) {
+  ids <- c("SSP126_2041", "SSP245_2041", "SSP585_2041",
+           "SSP126_2061", "SSP245_2061", "SSP585_2061")
+  suffixes <- c("SSP126_2041-2060", "SSP245_2041-2060", "SSP585_2041-2060",
+                "SSP126_2061-2080", "SSP245_2061-2080", "SSP585_2061-2080")
+}
 future_files <- setNames(
   file.path(consensus_dir, paste0("Consensus_2of4_", suffixes, ".tif")), ids
 )
@@ -196,8 +204,12 @@ area_present <- suitability_summary$area_km2[1]
 if (abs(area_present - 379223.5) > 1) {
   stop("Present suitable area does not match the manuscript baseline: ", area_present)
 }
-expected_futures <- c(144294.6, 138796.7, 143206.2, 143995.9)
-if (any(abs(suitability_summary$area_km2[-1] - expected_futures) > 1)) {
+expected_futures <- c(SSP126_2041 = 144294.6, SSP585_2041 = 138796.7,
+                      SSP126_2061 = 143206.2, SSP585_2061 = 143995.9)
+# Historical scenarios keep their area checks. SSP245 values are calculated,
+# never assigned or interpolated from the other scenarios.
+checked <- suitability_summary[match(names(expected_futures), suitability_summary$scenario), ]
+if (anyNA(checked$area_km2) || any(abs(checked$area_km2 - expected_futures) > 1)) {
   stop("One or more future suitable areas differ from the analysed consensus.")
 }
 
@@ -209,3 +221,4 @@ print(occ_results)
 print(suitability_summary)
 print(change_summary)
 cat("\nArea-weighted elevational results saved in: ", output_dir, "\n", sep = "")
+

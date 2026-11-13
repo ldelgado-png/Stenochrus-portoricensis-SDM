@@ -156,6 +156,10 @@ We found that strict non-analog conditions increased substantially under stronge
 Unanimous 4/4 NAC agreement covered **9.22%**, **24.45%**, **10.75%**, and **45.99%** of the country across the same scenarios. Despite this increase in environmental novelty, overlap between multi-GCM suitable predictions and multi-GCM NAC was very limited: no ≥2-GCM overlap occurred in the first three scenarios, and only **1,324.2 km²** did so under SSP5-8.5 in 2061–2080, approximately **0.92%** of the ≥2/4 future suitable consensus area.
 
 
+## SSP2-4.5 elevational extension
+
+The [SSP245 extension](R/47_SSP245_altitudinal_extension.R) prepares eight additional projections using the existing four GCMs and two periods, fixed 10TP = 0.2123639 and ≥2/4 consensus. It extends the area-weighted elevational tables and Figure 6 to three SSPs while preserving the historical outputs. **Code prepared for local execution; SSP245 results have not yet been computed.** See [inputs, execution and outputs](docs/SSP245_altitudinal_extension.md). Existing numerical summaries below describe SSP126 and SSP585.
+
 ## Elevational redistribution of climatic suitability
 
 **Published Colombian elevational interval (literature-based): 500–1,287 m a.s.l.** The lower published locality is El Naranjo, Dagua (500 m; Villarreal et al. 2023, [doi:10.1590/1678-4766e2023005](https://doi.org/10.1590/1678-4766e2023005)); the higher cited locality is Armenia (1,287 m; de Armas & Delgado-Santa 2012, *Boletín S.E.A.* 50:183–186). We use **500–1,287 m** when depicting the elevational interval explicitly reported in these publications and comparing it with native genera; this is a **literature-based interval**, not the range of the model's extracted occurrence elevations.

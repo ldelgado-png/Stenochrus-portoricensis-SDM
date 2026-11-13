@@ -9,7 +9,9 @@ suppressPackageStartupMessages({
 })
 
 project_dir <- Sys.getenv("STENOCHRU_SDM_PROJECT", unset = getwd())
-out_dir <- file.path(project_dir, "results", "altitude")
+include_ssp245 <- identical(Sys.getenv("STENOCHRU_INCLUDE_SSP245", "FALSE"), "TRUE")
+out_dir <- file.path(project_dir, "results",
+                     if (include_ssp245) "altitude_with_SSP245" else "altitude")
 bands_file <- file.path(out_dir, "Altitude_suitability_bands.csv")
 changes_file <- file.path(out_dir, "Altitude_change_gain_loss_persistence.csv")
 if (!file.exists(bands_file) || !file.exists(changes_file)) {
@@ -23,9 +25,20 @@ ids <- c("Current", "SSP126_2041", "SSP585_2041",
 scenario_labels <- c("Current", "SSP1-2.6\n2041-2060",
                      "SSP5-8.5\n2041-2060", "SSP1-2.6\n2061-2080",
                      "SSP5-8.5\n2061-2080")
+if (include_ssp245) {
+  ids <- c("Current", "SSP126_2041", "SSP245_2041", "SSP585_2041",
+           "SSP126_2061", "SSP245_2061", "SSP585_2061")
+  scenario_labels <- c("Current", "SSP1-2.6\n2041-2060", "SSP2-4.5\n2041-2060",
+                       "SSP5-8.5\n2041-2060", "SSP1-2.6\n2061-2080",
+                       "SSP2-4.5\n2061-2080", "SSP5-8.5\n2061-2080")
+}
 if (!all(bands$scenario %in% ids) ||
     !all(changes$scenario %in% ids[-1])) {
   stop("Unexpected scenario IDs in the altitude summary tables.")
+}
+if (!all(ids %in% unique(bands$scenario)) ||
+    !all(ids[-1] %in% unique(changes$scenario))) {
+  stop("Incomplete scenario set: rerun the elevational analysis first.")
 }
 bands$scenario <- factor(bands$scenario, levels = ids, labels = scenario_labels)
 changes$scenario <- factor(changes$scenario, levels = ids[-1],
@@ -80,7 +93,8 @@ pB <- ggplot(changes, aes(x = scenario, y = median_m,
                 position = dodge, width = 0.16, linewidth = 0.85) +
   geom_point(position = dodge, size = 3.1) +
   scale_color_manual(values = change_cols, drop = FALSE) +
-  scale_y_continuous(limits = c(0, 2250), breaks = seq(0, 2000, 500),
+  scale_y_continuous(limits = c(0, max(2250, ceiling(max(changes$q3_m, na.rm=TRUE)/500)*500)),
+                     breaks = scales::breaks_pretty(n=5),
                      expand = expansion(mult = c(0, 0.01))) +
   labs(title = "B. Elevation of loss, persistence and gain",
        x = NULL, y = "Elevation (m a.s.l.)",
@@ -90,9 +104,9 @@ pB <- ggplot(changes, aes(x = scenario, y = median_m,
 fig <- (pA / pB) + plot_layout(heights = c(1, 1.05))
 print(fig)
 
-basename <- "Figure_altitudinal_redistribution_FINAL"
+basename <- if (include_ssp245) "Figure_6_altitudinal_with_SSP245" else "Figure_altitudinal_redistribution_FINAL"
 ggsave(file.path(out_dir, paste0(basename, ".png")), fig,
-       width = 11, height = 9.5, units = "in", dpi = 400, bg = "white")
+       width = if (include_ssp245) 13 else 11, height = 9.5, units = "in", dpi = 400, bg = "white")
 ggsave(file.path(out_dir, paste0(basename, ".tiff")), fig,
        device = "tiff", width = 11, height = 9.5, units = "in",
        dpi = 400, compression = "lzw", bg = "white")
@@ -100,3 +114,4 @@ ggsave(file.path(out_dir, paste0(basename, ".pdf")), fig,
        device = "pdf", width = 11, height = 9.5, units = "in",
        bg = "white")
 cat("Figure 6 exports saved to ", out_dir, "\n", sep = "")
+
