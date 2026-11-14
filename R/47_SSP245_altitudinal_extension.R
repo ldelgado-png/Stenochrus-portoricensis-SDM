@@ -126,7 +126,9 @@ local({
       write.csv(do.call(rbind,rows),file.path(run_dir,"SSP245_individual_gcm.csv"),row.names=FALSE)
       write.csv(do.call(rbind,manifest),file.path(run_dir,"future_source_manifest.csv"),row.names=FALSE)
     }
-    agreement <- terra::app(do.call(c,predictions),"sum",na.rm=FALSE)
+    binary_stack <- terra::rast(unname(predictions))
+    stopifnot(inherits(binary_stack, "SpatRaster"), terra::nlyr(binary_stack) == 4L)
+    agreement <- terra::app(binary_stack,"sum",na.rm=FALSE)
     consensus <- agreement>=2
     # 0 unchanged unsuitable; 1 gain; 2 loss; 3 persistence.
     change <- terra::ifel(present,terra::ifel(consensus,3,2),terra::ifel(consensus,1,0))
